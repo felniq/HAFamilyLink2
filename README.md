@@ -5,6 +5,8 @@
 [![HACS][hacs-shield]][hacs]
 [![Buy Me A Beer](https://img.shields.io/badge/Buy%20me%20a%20beer-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/noiwid)
 
+This is a fork from noiwids work. I did this just because I have 6 kids and all of them don't fit into familylinks one family with two parents so I need two familylink accounts and families to split them
+
 A comprehensive Home Assistant integration for monitoring and controlling Google Family Link devices. Track screen time, manage time limits, control bedtime/school schedules, and manage time bonuses directly from Home Assistant.
 
 ## 🚨 Important Disclaimer
