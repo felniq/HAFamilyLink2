@@ -3,7 +3,7 @@
 
 # Configuration
 DOCKER_USER="${DOCKER_USER:-noiwid}"
-IMAGE_NAME="familylink-auth"
+IMAGE_NAME="familylink-auth2"
 VERSION=$(grep '"version":' config.json | sed 's/.*"version": "\(.*\)".*/\1/')
 
 echo "Building Family Link Auth Docker image..."

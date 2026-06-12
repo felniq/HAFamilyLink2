@@ -4,8 +4,8 @@ from __future__ import annotations
 from typing import Final
 
 # Integration constants
-DOMAIN: Final = "familylink"
-INTEGRATION_NAME: Final = "Google Family Link"
+DOMAIN: Final = "familylink2"
+INTEGRATION_NAME: Final = "Google Family Link 2"
 
 # Configuration
 CONF_COOKIE_FILE: Final = "cookie_file"

@@ -50,7 +50,7 @@ The add-on handles Google authentication using Playwright browser automation.
 3. Click the **...** menu (top right) > **Repositories**  
 4. Add this URL:  
    ```
-   https://github.com/noiwid/HAFamilyLink
+   https://github.com/felniq/HAFamilyLink2
    ```
 5. Click **Add** > **Close**
 
@@ -134,13 +134,13 @@ You can install the integration via HACS (recommended) or manually.
 
 ### Option A: Install via HACS (Recommended) ⭐
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Noiwid&repository=HAFamilyLink&category=Integration+)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=felniq&repository=HAFamilyLink2&category=Integration+)
 
 1. Open Home Assistant  
 2. Navigate to **HACS** > **Integrations**  
 3. Click **...** (top right) > **Custom repositories**  
 4. Add repository:  
-   - **Repository**: `https://github.com/noiwid/HAFamilyLink`  
+   - **Repository**: `https://github.com/felniq/HAFamilyLink2`  
    - **Category**: `Integration`  
 5. Click **Add**  
 6. Close the custom repositories dialog  
@@ -153,15 +153,15 @@ You can install the integration via HACS (recommended) or manually.
 
 ### Option B: Manual Installation 📦
 
-1. Download the [latest release](https://github.com/noiwid/HAFamilyLink/releases) from GitHub  
+1. Download the [latest release](https://github.com/felniq/HAFamilyLink2/releases) from GitHub  
 2. Extract the ZIP file  
-3. Copy the `custom_components/familylink` folder to your Home Assistant `config/custom_components/` directory  
+3. Copy the `custom_components/familylink2` folder to your Home Assistant `config/custom_components/` directory  
 
    Final structure:  
    ```
    config/
      custom_components/
-       familylink/
+       familylink2/
          __init__.py
          manifest.json
          config_flow.py
@@ -227,7 +227,7 @@ You can install the integration via HACS (recommended) or manually.
 To verify cookies were loaded successfully, check the Home Assistant logs:
 
 1. Go to **Settings** > **System** > **Logs**
-2. Search for: `familylink`
+2. Search for: `familylink2`
 3. Look for messages like:
    ```
    Successfully loaded X cookies from add-on
@@ -275,7 +275,7 @@ To verify cookies were loaded successfully, check the Home Assistant logs:
 ### Check Logs 🧾
 
 1. Navigate to **Settings** > **System** > **Logs**  
-2. Filter for "familylink"  
+2. Filter for "familylink2"  
 3. Look for:  
    ```
    Successfully loaded X cookies from add-on
@@ -295,7 +295,7 @@ To verify cookies were loaded successfully, check the Home Assistant logs:
 **Problem:** Can't find "Google Family Link" when adding integration  
 
 **Solution:**  
-1. Verify files are in `config/custom_components/familylink/`  
+1. Verify files are in `config/custom_components/familylink2/`  
 2. Restart Home Assistant  
 3. Clear browser cache (Ctrl+F5) 🧼  
 4. Check logs for errors during startup
@@ -413,10 +413,10 @@ rm -rf /share/familylink2
 
 If you encounter issues:
 
-1. **Check Logs**: Settings > System > Logs > Filter "familylink"  
-2. **Search Issues**: [GitHub Issues](https://github.com/noiwid/HAFamilyLink/issues)  
-3. **Report Bug**: [Create New Issue](https://github.com/noiwid/HAFamilyLink/issues/new)  
-4. **Discussions**: [GitHub Discussions](https://github.com/noiwid/HAFamilyLink/discussions)
+1. **Check Logs**: Settings > System > Logs > Filter "familylink2"  
+2. **Search Issues**: [GitHub Issues](https://github.com/felniq/HAFamilyLink2/issues)  
+3. **Report Bug**: [Create New Issue](https://github.com/felniq/HAFamilyLink2/issues/new)  
+4. **Discussions**: [GitHub Discussions](https://github.com/felniq/HAFamilyLink2/discussions)
 
 When reporting issues, please include:  
 - Home Assistant version 🔢  

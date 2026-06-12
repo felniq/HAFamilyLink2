@@ -32,12 +32,12 @@ jobs:
 
           # Update version in manifest.json using jq
           jq --arg v "$VERSION" '.version = $v' \
-            custom_components/familylink/manifest.json > tmp.json
-          mv tmp.json custom_components/familylink/manifest.json
+            custom_components/familylink2/manifest.json > tmp.json
+          mv tmp.json custom_components/familylink2/manifest.json
 
           # Show the change
           echo "Updated manifest.json:"
-          cat custom_components/familylink/manifest.json
+          cat custom_components/familylink2/manifest.json
 
       - name: Commit version update and move tag
         id: commit
@@ -49,12 +49,12 @@ jobs:
           VERSION="${{ steps.version.outputs.version }}"
 
           # Check if there are changes to commit
-          if git diff --quiet custom_components/familylink/manifest.json; then
+          if git diff --quiet custom_components/familylink2/manifest.json; then
             echo "No changes to commit - version already up to date"
             echo "tag_updated=false" >> $GITHUB_OUTPUT
           else
             # Commit the version update
-            git add custom_components/familylink/manifest.json
+            git add custom_components/familylink2/manifest.json
             git commit -m "chore: bump integration version to $VERSION"
 
             # Push the commit to the branch
@@ -72,14 +72,14 @@ jobs:
         run: |
           # Create a ZIP of the integration folder with the correct version
           cd custom_components
-          zip -r ../familylink.zip familylink
+          zip -r ../familylink2.zip familylink2
           cd ..
-          echo "✅ Created familylink.zip with version ${{ steps.version.outputs.version }}"
-          unzip -l familylink.zip
+          echo "✅ Created familylink2.zip with version ${{ steps.version.outputs.version }}"
+          unzip -l familylink2.zip
 
       - name: Upload ZIP to release
         uses: softprops/action-gh-release@v2
         with:
-          files: familylink.zip
+          files: familylink2.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

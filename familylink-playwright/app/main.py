@@ -432,7 +432,7 @@ async def health_check():
     """Health check endpoint."""
     return {
         "status": "healthy",
-        "service": "familylink-auth",
+        "service": "familylink-auth2",
         "version": "1.0.0"
     }
 
