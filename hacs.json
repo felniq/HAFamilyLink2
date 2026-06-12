@@ -1,7 +1,7 @@
 {
-	"name": "Google Family Link",
+	"name": "Google Family Link 2",
 	"content_in_root": false,
-	"filename": "familylink",
+	"filename": "familylink2",
 	"country": ["FR", "GB", "US", "CA", "AU"],
 	"render_readme": true,
 	"domains": ["switch"],

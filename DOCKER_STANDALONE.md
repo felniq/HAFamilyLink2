@@ -15,7 +15,7 @@ This guide explains how to run the Family Link Auth service as a standalone Dock
 1. Create a directory for the service:
 
 ```bash
-mkdir familylink-auth && cd familylink-auth
+mkdir familylink-auth2 && cd familylink-auth2
 ```
 
 2. Create a `docker-compose.yml` file:
@@ -24,9 +24,9 @@ mkdir familylink-auth && cd familylink-auth
 version: '3.8'
 
 services:
-  familylink-auth:
+  familylink-auth2:
     image: ghcr.io/noiwid/familylink-auth:standalone
-    container_name: familylink-auth
+    container_name: familylink-auth2
     ports:
       - "8098:8098"  # API
       - "6079:6079"  # noVNC web interface
@@ -62,7 +62,7 @@ docker compose up -d
 
 ```bash
 docker run -d \
-  --name familylink-auth \
+  --name familylink-auth2 \
   --shm-size=2gb \
   -p 8098:8098 \
   -p 6079:6079 \
@@ -147,8 +147,8 @@ docker compose up -d
 
 ```bash
 docker pull ghcr.io/noiwid/familylink-auth:standalone
-docker stop familylink-auth
-docker rm familylink-auth
+docker stop familylink-auth2
+docker rm familylink-auth2
 # Re-run the docker run command above
 ```
 
@@ -156,7 +156,7 @@ docker rm familylink-auth
 
 ### Container won't start
 - Ensure `shm_size` is set to at least `2gb` (Chromium needs shared memory)
-- Check logs: `docker logs familylink-auth`
+- Check logs: `docker logs familylink-auth2`
 
 ### Cannot access noVNC
 - Verify port `6079` is not blocked by a firewall

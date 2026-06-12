@@ -20,7 +20,7 @@ block_device_for_school:
       required: false
       selector:
         entity:
-          integration: familylink
+          integration: familylink2
     child_id:
       name: Child ID (manual)
       description: Child's user ID - only needed if not using entity selector. If not specified, applies to ALL children.
@@ -39,7 +39,7 @@ unblock_all_apps:
       required: false
       selector:
         entity:
-          integration: familylink
+          integration: familylink2
     child_id:
       name: Child ID (manual)
       description: Child's user ID - only needed if not using entity selector. If not specified, applies to ALL children.
@@ -65,7 +65,7 @@ block_app:
       required: false
       selector:
         entity:
-          integration: familylink
+          integration: familylink2
     child_id:
       name: Child ID (manual)
       description: Child's user ID - only needed if not using entity selector. If not specified, applies to ALL children.
@@ -91,7 +91,7 @@ unblock_app:
       required: false
       selector:
         entity:
-          integration: familylink
+          integration: familylink2
     child_id:
       name: Child ID (manual)
       description: Child's user ID - only needed if not using entity selector. If not specified, applies to ALL children.
@@ -129,7 +129,7 @@ set_app_daily_limit:
       required: false
       selector:
         entity:
-          integration: familylink
+          integration: familylink2
     child_id:
       name: Child ID (manual)
       description: Child's user ID - only needed if not using entity selector. If not specified, applies to ALL children.
@@ -150,7 +150,7 @@ add_time_bonus:
       required: false
       selector:
         entity:
-          integration: familylink
+          integration: familylink2
           domain: switch
     bonus_minutes:
       name: Bonus Minutes
@@ -189,7 +189,7 @@ enable_bedtime:
       required: false
       selector:
         entity:
-          integration: familylink
+          integration: familylink2
     child_id:
       name: Child ID (manual)
       description: Child's user ID - only needed if not using entity selector
@@ -208,7 +208,7 @@ disable_bedtime:
       required: false
       selector:
         entity:
-          integration: familylink
+          integration: familylink2
     child_id:
       name: Child ID (manual)
       description: Child's user ID - only needed if not using entity selector
@@ -274,7 +274,7 @@ enable_school_time:
       required: false
       selector:
         entity:
-          integration: familylink
+          integration: familylink2
     child_id:
       name: Child ID (manual)
       description: Child's user ID - only needed if not using entity selector
@@ -293,7 +293,7 @@ disable_school_time:
       required: false
       selector:
         entity:
-          integration: familylink
+          integration: familylink2
     child_id:
       name: Child ID (manual)
       description: Child's user ID - only needed if not using entity selector
@@ -312,7 +312,7 @@ enable_daily_limit:
       required: false
       selector:
         entity:
-          integration: familylink
+          integration: familylink2
     child_id:
       name: Child ID (manual)
       description: Child's user ID - only needed if not using entity selector
@@ -331,7 +331,7 @@ disable_daily_limit:
       required: false
       selector:
         entity:
-          integration: familylink
+          integration: familylink2
     child_id:
       name: Child ID (manual)
       description: Child's user ID - only needed if not using entity selector
@@ -350,7 +350,7 @@ set_daily_limit:
       required: false
       selector:
         entity:
-          integration: familylink
+          integration: familylink2
           domain: switch
     daily_minutes:
       name: Daily Minutes
@@ -391,7 +391,7 @@ refresh_location:
       required: false
       selector:
         entity:
-          integration: familylink
+          integration: familylink2
     child_id:
       name: Child ID (manual)
       description: Child's user ID - only needed if not using entity selector. If not specified, applies to ALL children.

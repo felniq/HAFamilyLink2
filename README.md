@@ -181,7 +181,7 @@ Provides secure, browser-based authentication:
 - **Cookie Extraction** - Securely stores authentication cookies
 - **Auto-refresh** - Keeps authentication fresh
 
-### 2. Home Assistant Integration (`custom_components/familylink/`)
+### 2. Home Assistant Integration (`custom_components/familylink2/`)
 Provides monitoring and control:
 - **Config Flow** - User-friendly setup wizard
 - **API Client** - Communicates with Google Family Link API
@@ -204,7 +204,7 @@ See the detailed [Installation Guide](INSTALL.md) for step-by-step instructions.
 
 1. **Install Family Link Auth Add-on**
 
-[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fnoiwid%2FHAFamilyLink)
+[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Ffelniq%2FHAFamilyLink2)
    - Add repository to Home Assistant 
    - Install and start the add-on
    - Authenticate via Web UI (open noVNC in your browser - see [Installation Guide](INSTALL.md))
@@ -212,7 +212,7 @@ See the detailed [Installation Guide](INSTALL.md) for step-by-step instructions.
 
 2. **Install Integration**
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Noiwid&repository=HAFamilyLink&category=integration)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=felniq&repository=HAFamilyLink2&category=integration)
    - Via HACS (recommended) or manually
    - Configure through Home Assistant UI
    - Cookies automatically loaded from add-on
@@ -535,7 +535,7 @@ This integration is free and maintained on my spare time. If it helped you or sa
 ### Development Setup
 
 ```bash
-git clone https://github.com/noiwid/HAFamilyLink.git
+git clone https://github.com/felniq/HAFamilyLink2.git
 cd HAFamilyLink
 python -m venv venv
 source venv/bin/activate
@@ -551,23 +551,24 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Developed by [@noiwid](https://github.com/noiwid)
 - Based on the original work by [@tducret](https://github.com/tducret/familylink) (Python package documenting Family Link API endpoints)
 - Inspired by [@Vortitron's HAFamilyLink](https://github.com/Vortitron/HAFamilyLink) repository
+- Fork from noiwid because one family isn't enough if you have 6 children
 - noVNC integration inspired by [@jnctech's fork](https://github.com/jnctech/HAFamilyLink)
 - Home Assistant community for integration examples and best practices
 - Reverse engineering insights from browser DevTools analysis
 
 ## 📞 Support
 
-- [Report Issues](https://github.com/noiwid/HAFamilyLink/issues)
-- [Feature Requests](https://github.com/noiwid/HAFamilyLink/issues/new)
-- [Discussions](https://github.com/noiwid/HAFamilyLink/discussions)
+- [Report Issues](https://github.com/felniq/HAFamilyLink2/issues)
+- [Feature Requests](https://github.com/felniq/HAFamilyLink2/issues/new)
+- [Discussions](https://github.com/felniq/HAFamilyLink2/discussions)
 
 ## ⚠️ Legal
 
 This is an unofficial integration and is not affiliated with, endorsed by, or connected to Google LLC. All product names, logos, and brands are property of their respective owners. Use at your own risk.
 
-[releases-shield]: https://img.shields.io/github/release/noiwid/HAFamilyLink.svg?style=for-the-badge
-[releases]: https://github.com/noiwid/HAFamilyLink/releases
-[license-shield]: https://img.shields.io/github/license/noiwid/HAFamilyLink.svg?style=for-the-badge
+[releases-shield]: https://img.shields.io/github/release/felniq/HAFamilyLink2.svg?style=for-the-badge
+[releases]: https://github.com/felniq/HAFamilyLink2/releases
+[license-shield]: https://img.shields.io/github/license/felniq/HAFamilyLink2.svg?style=for-the-badge
 [license]: LICENSE
 [hacs-shield]: https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge
 [hacs]: https://github.com/hacs/integration

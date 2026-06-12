@@ -137,7 +137,7 @@ Health check endpoint
 ```json
 {
   "status": "healthy",
-  "service": "familylink-auth",
+  "service": "familylink-auth2",
   "version": "1.0.0"
 }
 ```
@@ -266,7 +266,7 @@ log_level: debug
 
 Then check logs:
 - Supervisor → Google Family Link Auth → Log tab
-- Or: `ha addons logs familylink-auth`
+- Or: `ha addons logs familylink-auth2`
 
 Look for:
 - `[DEBUG] Starting browser authentication`

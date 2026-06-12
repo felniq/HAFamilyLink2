@@ -1,11 +1,11 @@
 {
-  "domain": "familylink",
-  "name": "Google Family Link",
+  "domain": "familylink2",
+  "name": "Google Family Link 2",
   "version": "1.2.7-rc5",
-  "documentation": "https://github.com/noiwid/HAFamilyLink",
-  "issue_tracker": "https://github.com/noiwid/HAFamilyLink/issues",
+  "documentation": "https://github.com/felniq/HAFamilyLink2",
+  "issue_tracker": "https://github.com/felniq/HAFamilyLink2/issues",
   "codeowners": [
-    "@noiwid"
+    "@felniq"
   ],
   "config_flow": true,
   "dependencies": [],

@@ -138,7 +138,7 @@ session_duration: 86400
                     ▼
 ┌──────────────────────────────────────────────┐
 │    Google Family Link Integration            │
-│    (custom_components/familylink)            │
+│    (custom_components/familylink2)            │
 └──────────────────────────────────────────────┘
 ```
 
