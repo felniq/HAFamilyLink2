@@ -1,6 +1,6 @@
 # Example dashboard
 
-A ready-to-use Lovelace dashboard built around the Google Family Link integration: screen time, per-device limits, bedtime and daily limit toggles, time bonuses, app usage and a location map.
+A ready-to-use Lovelace dashboard built around the Google Family Link 2 integration: screen time, per-device limits, bedtime and daily limit toggles, time bonuses, app usage and a location map.
 
 ![Family Link demo dashboard](dashboard.png)
 

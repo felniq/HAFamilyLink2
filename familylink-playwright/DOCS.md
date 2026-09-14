@@ -1,27 +1,27 @@
-# Home Assistant Add-on: Google Family Link Auth
+# Home Assistant Add-on: Google Family Link 2 Auth
 
 ## About
 
-This add-on performs the interactive Google login for the [Google Family Link integration](https://github.com/noiwid/HAFamilyLink). It launches a real Chromium window (Playwright) inside the container and streams it to your web browser through noVNC, so you sign in and complete 2FA exactly as you would on a desktop. Home Assistant's own container cannot run a browser, which is why this step lives in a separate add-on.
+This add-on performs the interactive Google login for the [Google Family Link 2 integration](https://github.com/felniq/HAFamilyLink2). It launches a real Chromium window (Playwright) inside the container and streams it to your web browser through noVNC, so you sign in and complete 2FA exactly as you would on a desktop. Home Assistant's own container cannot run a browser, which is why this step lives in a separate add-on.
 
-After a successful login, the add-on extracts the Google session cookies, encrypts them, and stores them under `/share/familylink/`. The integration then retrieves them automatically through the add-on's API (see [How the integration gets the cookies](#how-the-integration-gets-the-cookies)). One Google account at a time is supported.
+After a successful login, the add-on extracts the Google session cookies, encrypts them, and stores them under `/share/familylink2/`. The integration then retrieves them automatically through the add-on's API (see [How the integration gets the cookies](#how-the-integration-gets-the-cookies)). One Google account at a time is supported.
 
 > **Warning**: this project relies on unofficial, reverse-engineered Google endpoints and an automated login. There is no official API: Google can break it at any time, and usage may conflict with Google's Terms of Service. Use at your own risk.
 
 ## Installation
 
-1. Go to **Settings > Add-ons > Add-on Store**, open the three-dot menu, choose **Repositories**, and add `https://github.com/noiwid/HAFamilyLink`.
-2. Install **Google Family Link Auth**. The prebuilt image is downloaded from GHCR, so the install only takes a moment.
+1. Go to **Settings > Add-ons > Add-on Store**, open the three-dot menu, choose **Repositories**, and add `https://github.com/felniq/HAFamilyLink2`.
+2. Install **Google Family Link Auth 2**. The prebuilt image is downloaded from GHCR, so the install only takes a moment.
 3. Optionally adjust the options in the **Configuration** tab (see [Configuration](#configuration)).
 4. Start the add-on. Enabling **Start on boot** and **Watchdog** is recommended.
 
 ## How to use
 
-> Two ports must be reachable from your browser: **8099** (web UI) and **6080** (noVNC). If you reach Home Assistant through a reverse proxy or an external domain, use the local IP instead (for example `http://192.168.1.x:8099`).
+> Two ports must be reachable from your browser: **8098** (web UI) and **6079** (noVNC). If you reach Home Assistant through a reverse proxy or an external domain, use the local IP instead (for example `http://192.168.1.x:8098`).
 
-1. Click **Open Web UI**, or browse to `http://<HA local IP>:8099`.
+1. Click **Open Web UI**, or browse to `http://<HA local IP>:8098`.
 2. Click **Start Authentication**. Chromium starts inside the container, never on your computer.
-3. Open the noVNC link shown on that page, or browse to `http://<HA local IP>:6080/vnc.html`.
+3. Open the noVNC link shown on that page, or browse to `http://<HA local IP>:6079/vnc.html`.
 4. Enter the VNC password: the `vnc_password` option if you set one, otherwise the password generated at start and printed in the add-on **Log** tab (it changes at every start).
 5. Sign in to Google in the noVNC window and complete 2FA. Wait for the success message showing how many cookies were saved, then close the noVNC tab.
 6. Set up the integration in Home Assistant, following [INSTALL.md](https://github.com/noiwid/HAFamilyLink/blob/main/INSTALL.md). On Home Assistant OS the integration discovers the add-on and its API key automatically.
@@ -53,31 +53,31 @@ vnc_password: familylink
 
 | Port | Exposed | Purpose |
 |---|---|---|
-| 8099 | yes | Web UI and REST API. **Never expose it to the internet**: `/api/cookies` returns Google session cookies. |
-| 6080 | yes | noVNC browser view, protected by the VNC password only. Unmap it in **Configuration > Network** when you are not authenticating. |
+| 8098 | yes | Web UI and REST API. **Never expose it to the internet**: `/api/cookies` returns Google session cookies. |
+| 6079 | yes | noVNC browser view, protected by the VNC password only. Unmap it in **Configuration > Network** when you are not authenticating. |
 | 5900 | no | VNC server, bound to localhost inside the container. |
 
 ## Security
 
 The browser view behind noVNC shows a live Google session of the parent account. Whoever can open it can lift every restriction on the child's device. Keep this in mind:
 
-- **The VNC password is the only protection of port 6080.** Until version 1.9.0 the add-on shipped with a documented default password, so anyone on the home network could open the view; since 1.9.0 a random password is generated at every start when none is configured, and the web UI never carries it.
-- **Unmap port 6080** (and 8099 if the integration runs on the same Home Assistant) in **Configuration > Network** when you are not authenticating. You only need them during a login.
-- **Stop the add-on after the login.** The integration reads the encrypted cookie file from `/share/familylink` on its own, so the add-on can stay stopped until the session expires. Disable **Start on boot** if you prefer.
-- **Never expose ports 8099 or 6080 to the internet**, through a reverse proxy, Nabu Casa or a port forward: `/api/cookies` hands out a Google session.
+- **The VNC password is the only protection of port 6079.** Until version 1.9.0 the add-on shipped with a documented default password, so anyone on the home network could open the view; since 1.9.0 a random password is generated at every start when none is configured, and the web UI never carries it.
+- **Unmap port 6079** (and 8098 if the integration runs on the same Home Assistant) in **Configuration > Network** when you are not authenticating. You only need them during a login.
+- **Stop the add-on after the login.** The integration reads the encrypted cookie file from `/share/familylink2` on its own, so the add-on can stay stopped until the session expires. Disable **Start on boot** if you prefer.
+- **Never expose ports 8098 or 6079 to the internet**, through a reverse proxy, Nabu Casa or a port forward: `/api/cookies` hands out a Google session.
 - **Use a dedicated Google parent account** for this integration. The stored cookies are Google account cookies, not Family Link cookies: a leaked session reaches the whole account.
-- Home Assistant backups include `/share/familylink`, and so a live session. Treat them accordingly.
+- Home Assistant backups include `/share/familylink2`, and so a live session. Treat them accordingly.
 
 A broader hardening of the add-on (authenticated browser view, service token in a header, session expiry, log redaction) is being ported from [Haulund-ATP's fork](https://github.com/Haulund-ATP/HAFamilyLink).
 
 ## How the integration gets the cookies
 
-- Cookies are stored Fernet-encrypted in `/share/familylink/cookies.enc`, with the key in `/share/familylink/.key` (both mode 0600).
-- On first start in add-on mode, an API key is generated and saved to `/share/familylink/api_key` (0600). The integration reads that file automatically and calls `GET /api/cookies` with it: nothing to configure.
+- Cookies are stored Fernet-encrypted in `/share/familylink2/cookies.enc`, with the key in `/share/familylink2/.key` (both mode 0600).
+- On first start in add-on mode, an API key is generated and saved to `/share/familylink2/api_key` (0600). The integration reads that file automatically and calls `GET /api/cookies` with it: nothing to configure.
 - If the API is unreachable, the integration falls back to reading the encrypted file directly from `/share`.
 - In the standalone container no key is auto-generated: set the `API_KEY` environment variable yourself, otherwise `/api/cookies` is unprotected. See [DOCKER_STANDALONE.md](https://github.com/noiwid/HAFamilyLink/blob/main/DOCKER_STANDALONE.md).
 
-### API endpoints (port 8099)
+### API endpoints (port 8098)
 
 | Endpoint | Auth | Purpose |
 |---|---|---|
@@ -95,20 +95,20 @@ Current integrations send the key as an `X-API-Key` header. Query-key acceptance
 
 ### Where the logs are
 
-- Add-on: **Settings > Add-ons > Google Family Link Auth > Log**. From the CLI: `ha addons logs <repository-hash>_familylink-playwright` (installed add-ons carry a repository hash prefix in their slug).
+- Add-on: **Settings > Add-ons > Google Family Link 2 Auth > Log**. From the CLI: `ha addons logs <repository-hash>_familylink-playwright` (installed add-ons carry a repository hash prefix in their slug).
 - Standalone container: `docker logs`; display-stack logs are also written to `/var/log/familylink/` inside the container.
 
 Set `log_level: debug` for more detail. A successful run logs, among others: `Starting authentication session: <id>`, `Navigating to Google Family Link...`, `Monitoring authentication for session <id>`, `Extracted N Google cookies`, `Saved N cookies to shared storage`.
 
 ### No browser window appears on your computer
 
-Expected: Chromium runs inside the container. Open the noVNC page (port 6080) to see and control it.
+Expected: Chromium runs inside the container. Open the noVNC page (port 6079) to see and control it.
 
 ### noVNC does not connect, or the VNC password is refused
 
 With no `vnc_password` configured, the password changes at every start: read the current one in the add-on **Log** tab (line "VNC password for this start").
 
-- Check that ports 8099 and 6080 are both reachable from your browser; behind a reverse proxy, use the local IP.
+- Check that ports 8098 and 6079 are both reachable from your browser; behind a reverse proxy, use the local IP.
 - If the password is refused, check the `vnc_password` notes in the [Configuration](#configuration) table.
 - Update to the latest add-on version: several display-stack bugs (crashes when a client connects, silent failures) have been fixed over time, see the [changelog](https://github.com/noiwid/HAFamilyLink/blob/main/familylink-playwright/CHANGELOG.md).
 - Restart the add-on and watch the log: each display process is health-checked at startup, so a failure is visible there.
@@ -124,10 +124,10 @@ The login was not finished within `auth_timeout` seconds. Raise the option (up t
 ### Integration cannot find cookies
 
 1. Make sure the add-on is running and authentication completed (success message with the cookie count).
-2. Check that `/share/familylink/cookies.enc` exists.
+2. Check that `/share/familylink2/cookies.enc` exists.
 3. A corrupted cookie file is deleted automatically and reported as missing cookies: re-authenticate.
 
 ## Support
 
-- Bugs and questions: [GitHub issues](https://github.com/noiwid/HAFamilyLink/issues)
-- Version history: the add-on's **Changelog** tab, or [CHANGELOG.md](https://github.com/noiwid/HAFamilyLink/blob/main/familylink-playwright/CHANGELOG.md) and [GitHub releases](https://github.com/noiwid/HAFamilyLink/releases)
+- Bugs and questions: [GitHub issues](https://github.com/felniq/HAFamilyLink2/issues)
+- Version history: the add-on's **Changelog** tab, or [CHANGELOG.md](https://github.com/felniq/HAFamilyLink2/blob/main/familylink-playwright/CHANGELOG.md) and [GitHub releases](https://github.com/felniq/HAFamilyLink2/releases)

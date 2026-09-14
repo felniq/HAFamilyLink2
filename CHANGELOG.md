@@ -93,7 +93,7 @@ Cumulative release of the 1.2.15 pre-releases (rc1 to rc4) and of the fixes prep
 ## Add-on / auth container [1.8.0] - 2026-07-24
 
 ### Fixed
-- **noVNC no longer hangs on "Connecting…" forever (issue #136).** The auth container's display stack (Xvfb + fluxbox + x11vnc + websockify) was started with all output redirected to `/dev/null` and no real liveness check, so any failure was completely silent: the container stayed "healthy" on uvicorn/8099 while noVNC never rendered. Two concrete failure modes are addressed, plus the underlying crash:
+- **noVNC no longer hangs on "Connecting…" forever (issue #136).** The auth container's display stack (Xvfb + fluxbox + x11vnc + websockify) was started with all output redirected to `/dev/null` and no real liveness check, so any failure was completely silent: the container stayed "healthy" on uvicorn/8098 while noVNC never rendered. Two concrete failure modes are addressed, plus the underlying crash:
   - **Silent failures are now visible.** In the standalone container each display process logs to `/var/log/familylink/<proc>.log` instead of `/dev/null`, and its status is re-checked after launch with the last log lines dumped on failure. The add-on entrypoint (already logging to journald) gains the same Xvfb/fluxbox/x11vnc liveness checks.
   - **Stale X99 state is cleaned on start.** A non-graceful stop (e.g. `docker restart`) left `/tmp/.X11-unix/X99` and `/tmp/.X99-lock` behind, which made `Xvfb :99` silently refuse to bind on the next start and took the whole display stack down invisibly — only uvicorn came back, so the container reported healthy while VNC was dead. Both are now removed before the display server starts (and again before the x11vnc fallback).
   - **VNC password length.** x11vnc's `-passwd` (and TigerVNC's VncAuth) uses DES and silently keeps only the first 8 characters, so the 10-char default (`familylink`) never authenticated cleanly. The password is now truncated explicitly with a warning, and the web UI's auto-connect URL embeds the same 8-char value so client and server agree. The server stays localhost-only behind websockify.
@@ -180,11 +180,11 @@ Cumulative release of the 1.2.15 pre-releases (rc1 to rc4) and of the fixes prep
 ## [1.2.6-rc2] - 2026-05-12
 
 ### Fixed
-- **Config flow now exposes "Manual URL configuration" explicitly** — Previously the manual URL form was only reachable when local auto-detection failed, which made it impossible for Docker standalone users to point the integration at a remote auth container if `/share/familylink/` happened to contain stale data from a previous add-on install (#109)
+- **Config flow now exposes "Manual URL configuration" explicitly** — Previously the manual URL form was only reachable when local auto-detection failed, which made it impossible for Docker standalone users to point the integration at a remote auth container if `/share/familylink2/` happened to contain stale data from a previous add-on install (#109)
 - **Standalone container no longer shows a black noVNC screen** — A welcome banner is now displayed on the Xvfb display via `xterm` so users connecting to noVNC before triggering the auth flow get clear instructions instead of an empty desktop (#108)
 
 ### Changed
-- `DOCKER_STANDALONE.md` rewritten to document the actual flow (open port 8099 first, then noVNC on port 6080) and the new menu option
+- `DOCKER_STANDALONE.md` rewritten to document the actual flow (open port 8098 first, then noVNC on port 6079) and the new menu option
 
 ---
 
@@ -205,13 +205,13 @@ Cumulative release of the 1.2.15 pre-releases (rc1 to rc4) and of the fixes prep
 ## [1.2.0] - 2025-03
 
 ### Added
-- **noVNC web-based browser access** — No external VNC client needed anymore! The authentication browser is now accessible directly from your web browser at `http://[HOST]:6080/vnc.html` (replaces raw VNC on port 5900)
+- **noVNC web-based browser access** — No external VNC client needed anymore! The authentication browser is now accessible directly from your web browser at `http://[HOST]:6079/vnc.html` (replaces raw VNC on port 5900)
 - **Auto-detection of language and timezone** — The add-on now automatically reads your Home Assistant language and timezone settings via the Supervisor API. Manual override is still available in add-on configuration
 - **Bilingual web UI (FR/EN)** — The add-on authentication interface now supports French and English, switching automatically based on your HA language setting
 - **DNS configuration for Pi-hole compatibility** — Docker standalone setup now includes Google DNS (8.8.8.8) to avoid DNS resolution issues behind Pi-hole
 
 ### Changed
-- VNC server (x11vnc) now restricted to localhost only — external access is exclusively via noVNC (port 6080)
+- VNC server (x11vnc) now restricted to localhost only — external access is exclusively via noVNC (port 6079)
 - Add-on version bumped to 1.6.0
 - Default language/timezone options are now empty (auto-detected from HA)
 
@@ -347,7 +347,7 @@ Cumulative release of the 1.2.15 pre-releases (rc1 to rc4) and of the fixes prep
 - Standalone Docker bashio errors (#28)
 
 ### Security
-- Added warning: never expose port 8099 to internet (cookies returned in plain JSON)
+- Added warning: never expose port 8098 to internet (cookies returned in plain JSON)
 - GPS tracking opt-in by default (each poll may notify child's device)
 
 ---

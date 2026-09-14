@@ -1,4 +1,4 @@
-"""Custom exceptions for the Google Family Link integration."""
+"""Custom exceptions for the Google Family Link 2 integration."""
 from __future__ import annotations
 
 

@@ -3,7 +3,7 @@
 TRANSLATIONS = {
     "fr": {
         "html_lang": "fr",
-        "title": "Google Family Link Authentication",
+        "title": "Google Family Link 2 Authentication",
         "subtitle": "Service d'authentification pour l'int\u00e9gration Home Assistant",
         "start_auth": "D\u00e9marrer l'authentification",
         "instructions_title": "Instructions",
@@ -35,7 +35,7 @@ TRANSLATIONS = {
     },
     "en": {
         "html_lang": "en",
-        "title": "Google Family Link Authentication",
+        "title": "Google Family Link 2 Authentication",
         "subtitle": "Authentication service for Home Assistant integration",
         "start_auth": "Start Authentication",
         "instructions_title": "Instructions",

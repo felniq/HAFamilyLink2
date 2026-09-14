@@ -19,7 +19,7 @@ from custom_components.familylink.const import (
 )
 
 FAKE_API_KEY = "test-api-key-not-a-real-secret"
-FAKE_AUTH_URL = "http://auth.invalid:8099"
+FAKE_AUTH_URL = "http://auth.invalid:8098"
 
 
 async def test_legacy_query_key_migrates_to_separate_field(hass) -> None:
@@ -110,8 +110,8 @@ async def test_keyless_url_stays_on_compatibility_path(hass) -> None:
     [
         f"{FAKE_AUTH_URL}?api_key={FAKE_API_KEY}&api_key=other-fake-key",
         f"{FAKE_AUTH_URL}?api_key={FAKE_API_KEY}&route=legacy",
-        f"ftp://auth.invalid:8099?api_key={FAKE_API_KEY}",
-        f"http://user:password@auth.invalid:8099?api_key={FAKE_API_KEY}",
+        f"ftp://auth.invalid:8098?api_key={FAKE_API_KEY}",
+        f"http://user:password@auth.invalid:8098?api_key={FAKE_API_KEY}",
         f"{FAKE_AUTH_URL}?api_key=",
     ],
 )

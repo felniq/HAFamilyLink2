@@ -23,7 +23,7 @@
   "config": {
     "step": {
       "user": {
-        "title": "Google Family Link",
+        "title": "Google Family Link 2",
         "description": "בחר כיצד להתחבר לשירות Family Link Auth.",
         "menu_options": {
           "auto_detect": "זיהוי אוטומטי (תוסף או קובץ מקומי)",
@@ -32,7 +32,7 @@
       },
       "manual_url": {
         "title": "כתובת שרת האימות",
-        "description": "לא זוהה מקור אימות מקומי. הזינו את כתובת שרת Family Link Auth. אם API_KEY מוגדר במכולה העצמאית, הזינו אותו בנפרד; אחרת השאירו את השדה ריק.\n\nדוגמת כתובת: `http://192.168.1.100:8099`",
+        "description": "לא זוהה מקור אימות מקומי. הזינו את כתובת שרת Family Link Auth. אם API_KEY מוגדר במכולה העצמאית, הזינו אותו בנפרד; אחרת השאירו את השדה ריק.\n\nדוגמת כתובת: `http://192.168.1.100:8098`",
         "data": {
           "auth_url": "כתובת שרת האימות",
           "api_key": "מפתח API"

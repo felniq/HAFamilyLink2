@@ -1,4 +1,4 @@
-# <img src="https://brands.home-assistant.io/familylink/icon.png" alt="Google Family Link" width="30"> Google Family Link for Home Assistant
+# <img src="https://brands.home-assistant.io/familylink/icon.png" alt="Google Family Link 2" width="30"> Google Family Link for Home Assistant 2
 
 [![GitHub Release][releases-shield]][releases]
 [![HACS][hacsbadge]][hacs]
@@ -8,13 +8,13 @@ Monitor and control Google Family Link from Home Assistant: screen time, device 
 
 > **Disclaimer.** This integration uses unofficial, reverse-engineered Google Family Link endpoints. There is no official API: Google can change or break things at any time, and using this integration may violate Google's Terms of Service and could result in account suspension. **Use at your own risk.** This project is not affiliated with, endorsed by, or connected to Google LLC.
 
-![Family Link dashboard](https://raw.githubusercontent.com/noiwid/HAFamilyLink/main/examples/dashboard.png)
+![Family Link dashboard](https://raw.githubusercontent.com/felniq/HAFamilyLink2/main/examples/dashboard.png)
 
 > An example Lovelace dashboard built from this integration. The YAML and setup instructions are in [`examples/`](examples/).
 
 ## How it works
 
-The project ships two components that work together. The **integration** (`custom_components/familylink/`) polls Google's Family Link endpoints (every 60 seconds by default) and exposes entities and services. The **auth service** (`familylink-playwright/`) is a separate container running Chromium via Playwright: it performs the interactive Google login (2FA included) and hands the resulting session cookies to the integration, because Home Assistant's own container cannot run a browser. On Home Assistant OS / Supervised it installs as an add-on; everywhere else it runs as a [standalone Docker container](DOCKER_STANDALONE.md). When the Google session expires, you log in again in the auth service's web UI and the integration picks up the fresh cookies automatically.
+The project ships two components that work together. The **integration** (`custom_components/familylink2/`) polls Google's Family Link endpoints (every 60 seconds by default) and exposes entities and services. The **auth service** (`familylink-playwright/`) is a separate container running Chromium via Playwright: it performs the interactive Google login (2FA included) and hands the resulting session cookies to the integration, because Home Assistant's own container cannot run a browser. On Home Assistant OS / Supervised it installs as an add-on; everywhere else it runs as a [standalone Docker container](DOCKER_STANDALONE.md). When the Google session expires, you log in again in the auth service's web UI and the integration picks up the fresh cookies automatically.
 
 The endpoints and payload shapes the integration relies on are documented in [GOOGLE_FAMILY_LINK_API_ANALYSIS.md](GOOGLE_FAMILY_LINK_API_ANALYSIS.md).
 
@@ -37,16 +37,16 @@ Translations: English, French, Hebrew.
 The auth service must be running before you configure the integration.
 
 1. **Set up authentication.**
-   - *Home Assistant OS / Supervised:* add this repository as an add-on repository, install and start the **Google Family Link Auth** add-on, then complete the Google login through its web UI.
+   - *Home Assistant OS / Supervised:* add this repository as an add-on repository, install and start the **Google Family Link Auth 2** add-on, then complete the Google login through its web UI.
 
-     [![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fnoiwid%2FHAFamilyLink)
+     [![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Ffelniq%2FHAFamilyLink2)
    - *Home Assistant Core / Container (no Supervisor):* run the standalone auth container instead. See [DOCKER_STANDALONE.md](DOCKER_STANDALONE.md).
 
 2. **Install the integration** via HACS (recommended) or manually.
 
-   [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=noiwid&repository=HAFamilyLink&category=integration)
+   [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=felniq&repository=HAFamilyLink2&category=integration)
 
-3. **Add it:** Settings > Devices & Services > Add Integration > search for "Family Link". Auto-detect finds the add-on by itself; standalone users choose manual URL configuration and enter the container's URL.
+3. **Add it:** Settings > Devices & Services > Add Integration > search for "Family Link2". Auto-detect finds the add-on by itself; standalone users choose manual URL configuration and enter the container's URL.
 
 The full walkthrough (prerequisites, both auth routes, configuration options, re-authentication) is in **[INSTALL.md](INSTALL.md)**.
 
@@ -123,19 +123,17 @@ Targeting: every service accepts an optional `entity_id` or explicit `child_id` 
 
 ## Troubleshooting
 
-Setup and authentication problems (no entities, 403 on the cookie endpoint, session expired) are covered in [INSTALL.md](INSTALL.md); add-on specifics (web UI, VNC) in [familylink-playwright/DOCS.md](familylink-playwright/DOCS.md), including its [Security](familylink-playwright/DOCS.md#security) section: the browser view shows a live Google session, unmap port 6080 and stop the add-on when you are not authenticating.
+Setup and authentication problems (no entities, 403 on the cookie endpoint, session expired) are covered in [INSTALL.md](INSTALL.md); add-on specifics (web UI, VNC) in [familylink-playwright/DOCS.md](familylink-playwright/DOCS.md), including its [Security](familylink-playwright/DOCS.md#security) section: the browser view shows a live Google session, unmap port 6079 and stop the add-on when you are not authenticating.
 
 ## Changelog
 
-All notable changes are tracked in [CHANGELOG.md](CHANGELOG.md) and published on [GitHub Releases](https://github.com/noiwid/HAFamilyLink/releases).
+All notable changes are tracked in [CHANGELOG.md](CHANGELOG.md) and published on [GitHub Releases](https://github.com/felniq/HAFamilyLink2/releases).
 
 ## Contributing
 
 Contributions are welcome: fork the repository, create a feature branch, make your changes with clear commit messages, run the Home Assistant test suite documented in `tests/README.md`, test user-facing changes against a disposable Home Assistant instance, and open a pull request.
 
 This integration is free and maintained in my spare time. If it helped you or saved you time, you can buy me a beer:
-
-[![Buy Me A Beer](https://img.shields.io/badge/Buy%20me%20a%20beer-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/noiwid)
 
 ## Credits
 
@@ -145,12 +143,13 @@ This integration is free and maintained in my spare time. If it helped you or sa
 - noVNC integration inspired by [@jnctech's fork](https://github.com/jnctech/HAFamilyLink)
 - Home Assistant community for integration examples and best practices
 - Reverse engineering insights from browser DevTools analysis
+- Fork from noiwid because one family isn't enough if you have 6 children
 
 ## Support
 
-- [Report issues](https://github.com/noiwid/HAFamilyLink/issues)
-- [Feature requests](https://github.com/noiwid/HAFamilyLink/issues/new)
-- [Discussions](https://github.com/noiwid/HAFamilyLink/discussions)
+- [Report issues](https://github.com/felniq/HAFamilyLink2/issues)
+- [Feature requests](https://github.com/felniq/HAFamilyLink2/issues/new)
+- [Discussions](https://github.com/felniq/HAFamilyLink2/discussions)
 
 ## License
 
@@ -158,9 +157,9 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 This is an unofficial integration, not affiliated with, endorsed by, or connected to Google LLC. All product names, logos, and brands are property of their respective owners.
 
-[releases-shield]: https://img.shields.io/github/release/noiwid/HAFamilyLink.svg?style=for-the-badge
-[releases]: https://github.com/noiwid/HAFamilyLink/releases
-[license-shield]: https://img.shields.io/github/license/noiwid/HAFamilyLink.svg?style=for-the-badge
+[releases-shield]: https://img.shields.io/github/release/felniq/HAFamilyLink2.svg?style=for-the-badge
+[releases]: https://github.com/felniq/HAFamilyLink2/releases
+[license-shield]: https://img.shields.io/github/license/felniq/HAFamilyLink2.svg?style=for-the-badge
 [license]: LICENSE
 [hacsbadge]: https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge
 [hacs]: https://github.com/hacs/integration

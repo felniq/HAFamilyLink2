@@ -6,7 +6,7 @@ set -e
 # ==============================================================================
 
 echo "=============================================="
-echo "Google Family Link Auth Service (Standalone)"
+echo "Google Family Link 2 Auth Service (Standalone)"
 echo "=============================================="
 echo ""
 
@@ -28,18 +28,18 @@ echo "  - Timezone: ${TIMEZONE}"
 echo ""
 
 # Ensure shared directory exists
-mkdir -p /share/familylink
-chmod 700 /share/familylink
-echo "✓ Shared storage ready at /share/familylink"
+mkdir -p /share/familylink2
+chmod 700 /share/familylink2
+echo "✓ Shared storage ready at /share/familylink2"
 
 # In standalone mode /api/cookies is protected only when the API_KEY env
 # variable is set; no key is auto-generated (app/main.py logs a warning).
 if [ -n "${API_KEY:-}" ]; then
     echo "✓ Cookie API key: provided via API_KEY environment variable"
-    echo "  Configure the HA integration with URL http://<this-host>:8099 and enter this key in its separate API-key field"
+    echo "  Configure the HA integration with URL http://<this-host>:8098 and enter this key in its separate API-key field"
 else
     echo "⚠ Cookie API key: not set. /api/cookies is open; set API_KEY to protect it."
-    echo "  Configure the HA integration with: http://<this-host>:8099"
+    echo "  Configure the HA integration with: http://<this-host>:8098"
 fi
 
 # Start D-Bus system bus if not available (fixes blank screen on RPi4/ARM64)
@@ -204,14 +204,14 @@ else
     tail -n 20 "${LOG_DIR}/fluxbox.log" 2>/dev/null | sed 's/^/    fluxbox| /'
 fi
 
-echo "Starting noVNC on port 6080..."
-websockify --web=/usr/share/novnc 6080 localhost:5900 >"${LOG_DIR}/websockify.log" 2>&1 &
+echo "Starting noVNC on port 6079..."
+websockify --web=/usr/share/novnc 6079 localhost:5900 >"${LOG_DIR}/websockify.log" 2>&1 &
 NOVNC_PID=$!
 sleep 1
 if kill -0 "${NOVNC_PID}" 2>/dev/null; then
     echo "✓ noVNC started"
 else
-    echo "⚠ noVNC (websockify) failed to start on port 6080. Last log lines:"
+    echo "⚠ noVNC (websockify) failed to start on port 6079. Last log lines:"
     tail -n 20 "${LOG_DIR}/websockify.log" 2>/dev/null | sed 's/^/    novnc| /'
 fi
 
@@ -224,8 +224,8 @@ echo ""
 
 echo "=============================================="
 echo "Service Ready!"
-echo "  - Web UI: http://localhost:8099"
-echo "  - noVNC:  http://localhost:6080/vnc.html"
+echo "  - Web UI: http://localhost:8098"
+echo "  - noVNC:  http://localhost:6079/vnc.html"
 echo "=============================================="
 echo ""
 
@@ -233,7 +233,7 @@ echo ""
 cd /app || exit 1
 exec uvicorn app.main:app \
     --host 0.0.0.0 \
-    --port 8099 \
+    --port 8098 \
     --log-level "${LOG_LEVEL}" \
     --no-access-log \
     --workers 1

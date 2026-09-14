@@ -1,4 +1,4 @@
-"""Authentication module for Google Family Link integration."""
+"""Authentication module for Google Family Link 2 integration."""
 from __future__ import annotations
 
 from .addon_client import AddonCookieClient

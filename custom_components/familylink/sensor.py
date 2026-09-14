@@ -1,4 +1,4 @@
-"""Sensor platform for Google Family Link integration."""
+"""Sensor platform for Google Family Link 2 integration."""
 from __future__ import annotations
 
 from datetime import datetime

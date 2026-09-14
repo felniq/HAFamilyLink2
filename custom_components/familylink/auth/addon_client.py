@@ -19,10 +19,10 @@ _LOGGER = logging.getLogger(__name__)
 
 # Addon slug suffix (the hash prefix is derived from the repository URL)
 _ADDON_SLUG_SUFFIX = "familylink-playwright"
-_ADDON_PORT = 8099
+_ADDON_PORT = 8098
 
 # Default URL for local add-on (Home Assistant OS/Supervised)
-DEFAULT_AUTH_URL = "http://localhost:8099"
+DEFAULT_AUTH_URL = "http://localhost:8098"
 
 
 def normalize_auth_url(value: str, *, allow_legacy_query: bool = False) -> str:
@@ -78,7 +78,7 @@ class AuthServerCookiesUnavailable(Exception):
 class AddonCookieClient:
     """Client to read cookies from add-on via API or shared storage."""
 
-    SHARE_DIR = Path("/share/familylink")
+    SHARE_DIR = Path("/share/familylink2")
     COOKIE_FILE = "cookies.enc"
     KEY_FILE = ".key"
     API_KEY_FILE = "api_key"  # Written by the auth add-on, protects /api/cookies
@@ -181,7 +181,7 @@ class AddonCookieClient:
         """Fetch cookies from auth server API.
 
         Args:
-            url: Base URL of the auth server (e.g., http://localhost:8099)
+            url: Base URL of the auth server (e.g., http://localhost:8098)
 
         Returns:
             List of cookies or None if failed
@@ -343,8 +343,8 @@ class AddonCookieClient:
         Priority:
         1. Custom URL (if configured)
         2. Supervisor-resolved addon URL (HAOS installations)
-        3. Default local API (localhost:8099)
-        4. File fallback (/share/familylink/)
+        3. Default local API (localhost:8098)
+        4. File fallback (/share/familylink2/)
         """
         # New config entries persist endpoint ownership explicitly.
         if self.auth_source == AUTH_SOURCE_MANUAL:

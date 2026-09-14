@@ -26,14 +26,14 @@ xterm \
     -e bash -c '
 cat <<MSG
 ============================================================
-   Google Family Link — Authentication Service
+   Google Family Link 2 — Authentication Service
 ============================================================
 
    noVNC is connected. The Google login window will appear
    here AFTER you start the authentication flow.
 
    STEP 1 — Open the Web UI in a separate browser tab:
-            http://<your-host>:8099
+            http://<your-host>:8098
 
    STEP 2 — Click  "Start Authentication"  on that page.
 

@@ -23,7 +23,7 @@
 	"config": {
 		"step": {
 			"user": {
-				"title": "Google Family Link",
+				"title": "Google Family Link 2",
 				"description": "Choisissez comment vous connecter au service Family Link Auth.",
 				"menu_options": {
 					"auto_detect": "Détection automatique (module complémentaire ou fichier local)",
@@ -32,7 +32,7 @@
 			},
 			"manual_url": {
 				"title": "URL du serveur d'authentification",
-				"description": "Aucune source locale n'a été détectée. Saisissez l'URL du serveur Family Link Auth. Si API_KEY est configurée sur le conteneur autonome, saisissez-la séparément ; sinon laissez la clé vide.\n\nExemple d'URL : `http://192.168.1.100:8099`",
+				"description": "Aucune source locale n'a été détectée. Saisissez l'URL du serveur Family Link Auth. Si API_KEY est configurée sur le conteneur autonome, saisissez-la séparément ; sinon laissez la clé vide.\n\nExemple d'URL : `http://192.168.1.100:8098`",
 				"data": {
 					"auth_url": "URL du serveur d'authentification",
 					"api_key": "Clé API"

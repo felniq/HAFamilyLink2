@@ -19,14 +19,14 @@ Create a directory for the service, and inside it a `docker-compose.yml`:
 version: '3.8'
 
 services:
-  familylink-auth:
+  familylink-auth2:
     image: ghcr.io/noiwid/familylink-auth:standalone
-    container_name: familylink-auth
+    container_name: familylink-auth2
     ports:
-      - "8099:8099"  # Web UI + API
-      - "6080:6080"  # noVNC web interface
+      - "8098:8098"  # Web UI + API
+      - "6079:6079"  # noVNC web interface
     volumes:
-      - ./data:/share/familylink:rw
+      - ./data:/share/familylink2:rw
     shm_size: '2gb'  # Chromium needs more than Docker's 64MB default
     environment:
       - LOG_LEVEL=info
@@ -42,7 +42,7 @@ services:
       - 8.8.4.4
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8099/api/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8098/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -59,11 +59,11 @@ docker compose up -d
 
 ```bash
 docker run -d \
-  --name familylink-auth \
+  --name familylink-auth2 \
   --shm-size=2gb \
-  -p 8099:8099 \
-  -p 6080:6080 \
-  -v $(pwd)/data:/share/familylink:rw \
+  -p 8098:8098 \
+  -p 6079:6079 \
+  -v $(pwd)/data:/share/familylink2:rw \
   -e LOG_LEVEL=info \
   -e AUTH_TIMEOUT=300 \
   -e SESSION_DURATION=86400 \
@@ -99,7 +99,7 @@ Both `linux/amd64` and `linux/arm64` are supported; Docker pulls the right image
 
 | Host path | Container path | Contents |
 |---|---|---|
-| `./data` | `/share/familylink` | `cookies.enc` (Fernet-encrypted Google session cookies) and `.key` (the encryption key) |
+| `./data` | `/share/familylink2` | `cookies.enc` (Fernet-encrypted Google session cookies) and `.key` (the encryption key) |
 
 Keep this volume across container recreations so you do not have to log in to Google again after every update. Treat the directory as sensitive: together, the two files are a full Google session.
 
@@ -107,8 +107,8 @@ Keep this volume across container recreations so you do not have to log in to Go
 
 | Port | Purpose |
 |---|---|
-| `8099` | Web UI and REST API (the Home Assistant integration reads `/api/cookies` here). **Never expose it to the internet** |
-| `6080` | noVNC web interface, where the Google login happens. Protected by the VNC password only: keep it on a trusted network, or bind it to `127.0.0.1:6080:6080` and reach it through an SSH tunnel |
+| `8098` | Web UI and REST API (the Home Assistant integration reads `/api/cookies` here). **Never expose it to the internet** |
+| `6079` | noVNC web interface, where the Google login happens. Protected by the VNC password only: keep it on a trusted network, or bind it to `127.0.0.1:6079:6079` and reach it through an SSH tunnel |
 
 The VNC server itself (port 5900) is bound to localhost inside the container and is not exposed.
 
@@ -120,9 +120,9 @@ The `dns` entries (`8.8.8.8`, `8.8.4.4`) make the container resolve Google domai
 
 The flow uses **two ports**, in this order:
 
-1. Open the web UI: `http://<docker-host>:8099`.
+1. Open the web UI: `http://<docker-host>:8098`.
 2. Click **Start Authentication**. A Chromium browser launches inside the container.
-3. Open noVNC in another tab: `http://<docker-host>:6080/vnc.html`, and enter the VNC password: the `VNC_PASSWORD` environment variable if you set one, otherwise the password generated at start and printed in the container log (`docker logs familylink-auth`, line "VNC password for this start").
+3. Open noVNC in another tab: `http://<docker-host>:6079/vnc.html`, and enter the VNC password: the `VNC_PASSWORD` environment variable if you set one, otherwise the password generated at start and printed in the container log (`docker logs familylink-auth2`, line "VNC password for this start").
 4. Complete the Google login and 2FA in the Chromium window shown through noVNC.
 5. Wait for the success message showing how many cookies were saved, then close the noVNC tab.
 
@@ -130,13 +130,13 @@ To re-authenticate after the session expires, repeat the same steps; the integra
 
 ## API key (securing the cookie endpoint)
 
-`GET /api/cookies` returns your full Google session, so anyone who can reach port 8099 could read it.
+`GET /api/cookies` returns your full Google session, so anyone who can reach port 8098 could read it.
 
-- **In standalone mode the endpoint is open by default.** The container and Home Assistant do not share a volume, so an auto-generated key could not be handed over automatically; the container logs a warning at startup instead. (On Home Assistant OS add-on installs, a key is auto-generated and shared through `/share/familylink/api_key`: nothing to configure there.)
+- **In standalone mode the endpoint is open by default.** The container and Home Assistant do not share a volume, so an auto-generated key could not be handed over automatically; the container logs a warning at startup instead. (On Home Assistant OS add-on installs, a key is auto-generated and shared through `/share/familylink2/api_key`: nothing to configure there.)
 - To lock it down, set the `API_KEY` environment variable (uncomment the line in the compose file) and recreate the container.
-- Then enter `http://<docker-host>:8099` and the key in the configuration flow's separate **Manual URL** fields (see [INSTALL.md](INSTALL.md#configuration-flow)). The integration sends the key as an `X-API-Key` header. The auth server continues accepting legacy query keys temporarily for older integration versions.
+- Then enter `http://<docker-host>:8098` and the key in the configuration flow's separate **Manual URL** fields (see [INSTALL.md](INSTALL.md#configuration-flow)). The integration sends the key as an `X-API-Key` header. The auth server continues accepting legacy query keys temporarily for older integration versions.
 - Treat the Manual URL as a base URL. If a trusted reverse proxy exposes the service under a path such as `https://home.example/familylink-auth`, include that prefix; the integration preserves it when requesting `/api/health` and `/api/cookies`.
-- API key or not, keep port 8099 inside your trusted network.
+- API key or not, keep port 8098 inside your trusted network.
 
 ## Connecting to Home Assistant
 
@@ -155,8 +155,8 @@ docker compose up -d
 
 ```bash
 docker pull ghcr.io/noiwid/familylink-auth:standalone
-docker stop familylink-auth
-docker rm familylink-auth
+docker stop familylink-auth2
+docker rm familylink-auth2
 # Re-run the docker run command above
 ```
 
@@ -167,20 +167,20 @@ Your Google login survives updates as long as the `./data` volume is kept. Versi
 ### Container won't start
 
 - Make sure `shm_size` is at least `2gb` (Chromium needs the shared memory).
-- Check the logs: `docker logs familylink-auth`.
+- Check the logs: `docker logs familylink-auth2`.
 
 ### Cannot access noVNC
 
-- Verify port `6080` is not blocked by a firewall, and try `http://<docker-host>:6080` directly.
+- Verify port `6079` is not blocked by a firewall, and try `http://<docker-host>:6079` directly.
 - If the VNC password is refused, check the `VNC_PASSWORD` notes in the [environment variables](#environment-variables) table.
-- For display-stack failures, check `docker logs familylink-auth` and the files in `/var/log/familylink/` inside the container (`docker exec familylink-auth ls /var/log/familylink`).
+- For display-stack failures, check `docker logs familylink-auth2` and the files in `/var/log/familylink/` inside the container (`docker exec familylink-auth2 ls /var/log/familylink`).
 
 ### Integration cannot connect
 
-- Ensure the container is running: `docker ps | grep familylink`.
-- Check the health endpoint: `curl http://<docker-host>:8099/api/health`.
+- Ensure the container is running: `docker ps | grep familylink2`.
+- Check the health endpoint: `curl http://<docker-host>:8098/api/health`.
 - An HTTP 403 on the cookies endpoint means `API_KEY` is set but the integration's separate API-key field is missing or incorrect.
-- Verify Home Assistant can reach the Docker host on port `8099`.
+- Verify Home Assistant can reach the Docker host on port `8098`.
 
 ### DNS issues (Pi-hole, AdGuard, etc.)
 

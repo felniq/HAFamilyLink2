@@ -1,4 +1,4 @@
-"""Schedule parsing helpers for Google Family Link responses.
+"""Schedule parsing helpers for Google Family Link 2 responses.
 
 The timeLimit response is a positional JSON array with no field names, so the
 shapes below are the contract. Confirmed against a live account:

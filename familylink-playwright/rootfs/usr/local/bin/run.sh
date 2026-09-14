@@ -3,7 +3,7 @@
 # Start Family Link Auth Service
 # ==============================================================================
 
-bashio::log.info "Starting Google Family Link Auth Service..."
+bashio::log.info "Starting Google Family Link 2 Auth Service..."
 
 # Read configuration from Home Assistant
 LOG_LEVEL=$(bashio::config 'log_level' 'info')
@@ -65,10 +65,10 @@ bashio::log.info "  - Language: ${LANGUAGE}"
 bashio::log.info "  - Timezone: ${TIMEZONE}"
 
 # Ensure shared directory exists
-mkdir -p /share/familylink
-chmod 700 /share/familylink
+mkdir -p /share/familylink2
+chmod 700 /share/familylink2
 
-bashio::log.info "Shared storage ready at /share/familylink"
+bashio::log.info "Shared storage ready at /share/familylink2"
 
 # Start D-Bus system bus if not available (fixes blank screen on RPi4/ARM64)
 if [ ! -S /run/dbus/system_bus_socket ]; then
@@ -212,12 +212,12 @@ if ! kill -0 "${FLUXBOX_PID}" 2>/dev/null; then
     bashio::log.warning "fluxbox failed to start (non-critical, see log above)"
 fi
 
-bashio::log.info "Starting noVNC on port 6080..."
-websockify --web=/usr/share/novnc 6080 localhost:5900 &
+bashio::log.info "Starting noVNC on port 6079..."
+websockify --web=/usr/share/novnc 6079 localhost:5900 &
 NOVNC_PID=$!
 sleep 1
 if ! kill -0 "${NOVNC_PID}" 2>/dev/null; then
-    bashio::log.warning "websockify/noVNC failed to start on port 6080"
+    bashio::log.warning "websockify/noVNC failed to start on port 6079"
 fi
 
 # Display a welcome banner on the virtual display so noVNC is not black
@@ -232,7 +232,7 @@ bashio::log.info "Starting FastAPI application..."
 cd /app || exit 1
 exec uvicorn app.main:app \
     --host 0.0.0.0 \
-    --port 8099 \
+    --port 8098 \
     --log-level "${LOG_LEVEL}" \
     --no-access-log \
     --workers 1

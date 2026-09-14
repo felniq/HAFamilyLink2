@@ -8,7 +8,7 @@ from custom_components.familylink.const import CONF_API_KEY, CONF_AUTH_URL, DOMA
 from custom_components.familylink.diagnostics import async_get_config_entry_diagnostics
 
 FAKE_API_KEY = "test-api-key-not-a-real-secret"
-FAKE_AUTH_URL = "http://auth.invalid:8099"
+FAKE_AUTH_URL = "http://auth.invalid:8098"
 
 
 async def test_api_key_is_redacted_from_diagnostics(hass) -> None:

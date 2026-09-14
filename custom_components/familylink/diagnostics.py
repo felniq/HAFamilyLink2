@@ -1,4 +1,4 @@
-"""Diagnostics support for Google Family Link."""
+"""Diagnostics support for Google Family Link 2."""
 
 from __future__ import annotations
 

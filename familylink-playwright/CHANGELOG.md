@@ -1,12 +1,12 @@
 # Changelog
 
-All notable changes to the Google Family Link Auth Add-on will be documented in this file.
+All notable changes to the Google Family Link 2 Auth Add-on will be documented in this file.
 
 ## [1.9.0] - 2026-09-04
 
 ### Security
-- **The browser view is no longer reachable with a known password.** The add-on shipped with a documented default VNC password (`familylink`), and the web UI on port 8099, which needs no authentication, even embedded it in the noVNC link: anyone on the home network, the supervised child included, could open the browser holding the parent's Google session. With no `vnc_password` configured (or that old default), a random password is now generated at every start and printed in the add-on log, which only a Home Assistant administrator can read; the web UI never carries it. Set `vnc_password` to choose your own. Same behaviour in the standalone container (`VNC_PASSWORD`).
-- Port descriptions and a new **Security** section in DOCS.md: unmap port 6080 outside of a login, stop the add-on after the login, never expose the ports to the internet, use a dedicated parent account. Found while reviewing [Haulund-ATP's fork](https://github.com/Haulund-ATP/HAFamilyLink), whose wider hardening is being ported step by step.
+- **The browser view is no longer reachable with a known password.** The add-on shipped with a documented default VNC password (`familylink`), and the web UI on port 8098, which needs no authentication, even embedded it in the noVNC link: anyone on the home network, the supervised child included, could open the browser holding the parent's Google session. With no `vnc_password` configured (or that old default), a random password is now generated at every start and printed in the add-on log, which only a Home Assistant administrator can read; the web UI never carries it. Set `vnc_password` to choose your own. Same behaviour in the standalone container (`VNC_PASSWORD`).
+- Port descriptions and a new **Security** section in DOCS.md: unmap port 6079 outside of a login, stop the add-on after the login, never expose the ports to the internet, use a dedicated parent account. Found while reviewing [Haulund-ATP's fork](https://github.com/Haulund-ATP/HAFamilyLink), whose wider hardening is being ported step by step.
 
 ## [1.8.1] - 2026-08-21
 
@@ -26,22 +26,22 @@ All notable changes to the Google Family Link Auth Add-on will be documented in 
 ## [1.7.1] - 2026-06-15
 
 ### Fixed
-- **Standalone: `/api/cookies` no longer requires a key by default (#125).** The 1.7.0 always-on key broke existing Docker standalone setups: the auth container and the HA integration don't share a volume, so the auto-generated key could never reach the integration and every cookie fetch returned 403 ("cookies not available"). The endpoint is now key-protected only when it can be consumed without manual steps — i.e. when `API_KEY` is set explicitly, or when running as a Supervisor add-on (HA OS/Supervised), where the key is shared via `/share/familylink/api_key`. In standalone without `API_KEY` the endpoint stays open (pre-1.7.0 behavior) and logs a warning recommending `API_KEY`.
+- **Standalone: `/api/cookies` no longer requires a key by default (#125).** The 1.7.0 always-on key broke existing Docker standalone setups: the auth container and the HA integration don't share a volume, so the auto-generated key could never reach the integration and every cookie fetch returned 403 ("cookies not available"). The endpoint is now key-protected only when it can be consumed without manual steps — i.e. when `API_KEY` is set explicitly, or when running as a Supervisor add-on (HA OS/Supervised), where the key is shared via `/share/familylink2/api_key`. In standalone without `API_KEY` the endpoint stays open (pre-1.7.0 behavior) and logs a warning recommending `API_KEY`.
 
 ## [1.7.0] - 2026-06-12
 
 ### Security
-- **`/api/cookies` now always requires an API key** — previously the endpoint served the parent's full Google session cookies to anyone on the LAN (including the supervised child's devices), allowing a complete Family Link bypass. A key is auto-generated on first start and persisted in `/share/familylink/api_key` (`./data/api_key` in standalone mode); the `API_KEY` environment variable can override it. The auth-flow endpoints (`/api/auth/*`) remain usable from the web UI without a key unless `API_KEY` is explicitly set.
+- **`/api/cookies` now always requires an API key** — previously the endpoint served the parent's full Google session cookies to anyone on the LAN (including the supervised child's devices), allowing a complete Family Link bypass. A key is auto-generated on first start and persisted in `/share/familylink2/api_key` (`./data/api_key` in standalone mode); the `API_KEY` environment variable can override it. The auth-flow endpoints (`/api/auth/*`) remain usable from the web UI without a key unless `API_KEY` is explicitly set.
 - API key comparison now uses a constant-time check
 - The noVNC link no longer embeds a custom `vnc_password` in the unauthenticated web page (only the documented default is auto-filled)
 
 ### Changed
 - **HA OS / Supervised**: no action needed — the integration reads the key automatically from the shared directory
-- **Docker standalone**: the HA integration URL must now include the key: `http://<host>:8099?api_key=<key>` (update the integration to its matching version first)
+- **Docker standalone**: the HA integration URL must now include the key: `http://<host>:8098?api_key=<key>` (update the integration to its matching version first)
 
 ### Fixed
 - Status polling no longer returns HTTP 500 after a completed session is cleaned up (web UI could previously stay stuck on "waiting")
-- Encryption key generation no longer crashes on first start when `/share/familylink` does not exist yet
+- Encryption key generation no longer crashes on first start when `/share/familylink2` does not exist yet
 - Web UI now forwards `?api_key=` to protected endpoints, so setting `API_KEY` no longer breaks the authentication flow
 
 ## [1.6.1] - 2026-05-12
@@ -55,15 +55,15 @@ All notable changes to the Google Family Link Auth Add-on will be documented in 
 ## [1.6.0] - 2025-03
 
 ### Added
-- **noVNC web-based access** — Replace external VNC client requirement with browser-based access via noVNC on port 6080
+- **noVNC web-based access** — Replace external VNC client requirement with browser-based access via noVNC on port 6079
 - **Auto-detection of language and timezone** — Reads HA settings via Supervisor API when add-on options are left empty
 - **Bilingual web UI (FR/EN)** — New `translations.py` module with French and English support, auto-switching based on language setting
 - **DNS configuration** — Added Google DNS (8.8.8.8, 8.8.4.4) to docker-compose for Pi-hole compatibility
 
 ### Changed
 - x11vnc now restricted to localhost only (no external raw VNC access)
-- websockify bridges localhost VNC to noVNC on port 6080
-- Exposed port changed from 5900 (VNC) to 6080 (noVNC)
+- websockify bridges localhost VNC to noVNC on port 6079
+- Exposed port changed from 5900 (VNC) to 6079 (noVNC)
 - Default language/timezone options changed to empty strings for auto-detection
 - Web UI HTML fully templated with i18n support (no more hardcoded French strings)
 

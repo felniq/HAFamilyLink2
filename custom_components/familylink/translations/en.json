@@ -23,7 +23,7 @@
 	"config": {
 		"step": {
 			"user": {
-				"title": "Google Family Link",
+				"title": "Google Family Link 2",
 				"description": "Choose how to connect to the Family Link Auth service.",
 				"menu_options": {
 					"auto_detect": "Auto-detect (add-on or local file)",
@@ -32,7 +32,7 @@
 			},
 			"manual_url": {
 				"title": "Authentication Server URL",
-				"description": "No local authentication source was detected. Enter the Family Link Auth server base URL. Any reverse-proxy path prefix is preserved. If the standalone container has API_KEY configured, enter it separately; otherwise leave the key blank.\n\nURL example: `http://192.168.1.100:8099`",
+				"description": "No local authentication source was detected. Enter the Family Link Auth server base URL. Any reverse-proxy path prefix is preserved. If the standalone container has API_KEY configured, enter it separately; otherwise leave the key blank.\n\nURL example: `http://192.168.1.100:8098`",
 				"data": {
 					"auth_url": "Authentication Server URL",
 					"api_key": "API Key"

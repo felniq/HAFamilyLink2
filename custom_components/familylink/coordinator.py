@@ -1,4 +1,4 @@
-"""Data update coordinator for Google Family Link integration."""
+"""Data update coordinator for Google Family Link 2 integration."""
 from __future__ import annotations
 
 import asyncio
@@ -715,9 +715,9 @@ class FamilyLinkDataUpdateCoordinator(DataUpdateCoordinator):
 			"persistent_notification",
 			"create",
 			{
-				"title": "Google Family Link - Authentication Required",
+				"title": "Google Family Link 2 - Authentication Required",
 				"message": (
-					"Your Google Family Link session has expired.\n\n"
+					"Your Google Family Link 2 session has expired.\n\n"
 					"Please re-authenticate using the **Family Link Auth** add-on:\n"
 					"1. Open the add-on in Supervisor\n"
 					"2. Click 'Open Web UI'\n"

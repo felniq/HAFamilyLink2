@@ -1,4 +1,4 @@
-"""Device tracker platform for Google Family Link integration."""
+"""Device tracker platform for Google Family Link 2 integration."""
 from __future__ import annotations
 
 import logging

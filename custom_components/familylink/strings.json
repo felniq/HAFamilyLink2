@@ -2,7 +2,7 @@
 	"options": {
 		"step": {
 			"init": {
-				"title": "Configure Family Link",
+				"title": "Configure Family Link 2",
 				"description": "Adjust integration settings. Changes will take effect after saving.",
 				"data": {
 					"update_interval": "Update Interval (seconds)",
@@ -23,8 +23,8 @@
 	"config": {
 		"step": {
 			"user": {
-				"title": "Google Family Link",
-				"description": "Choose how to connect to the Family Link Auth service.",
+				"title": "Google Family Link 2",
+				"description": "Choose how to connect to the Family Link Auth 2 service.",
 				"menu_options": {
 					"auto_detect": "Auto-detect (add-on or local file)",
 					"manual_url": "Manual URL configuration (Docker standalone)"
@@ -32,14 +32,14 @@
 			},
 			"manual_url": {
 				"title": "Authentication Server URL",
-				"description": "No local authentication source was detected. Enter the Family Link Auth server base URL. Any reverse-proxy path prefix is preserved. If the standalone container has API_KEY configured, enter it separately; otherwise leave the key blank.\n\nURL example: `http://192.168.1.100:8099`",
+				"description": "No local authentication source was detected. Enter the Family Link Auth server base URL. Any reverse-proxy path prefix is preserved. If the standalone container has API_KEY configured, enter it separately; otherwise leave the key blank.\n\nURL example: `http://192.168.1.100:8098`",
 				"data": {
 					"auth_url": "Authentication Server URL",
 					"api_key": "API Key"
 				}
 			},
 			"configure": {
-				"title": "Configure Family Link",
+				"title": "Configure Family Link 2",
 				"description": "Authentication source: {auth_source}",
 				"data": {
 					"name": "Integration Name",

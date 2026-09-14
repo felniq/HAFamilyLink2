@@ -1,4 +1,4 @@
-"""The Google Family Link integration."""
+"""The Google Family Link 2 integration."""
 from __future__ import annotations
 
 import logging
@@ -228,7 +228,7 @@ SCHEMA_SET_UPDATE_INTERVAL = vol.Schema({
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-	"""Set up Google Family Link from a config entry."""
+	"""Set up Google Family Link 2 from a config entry."""
 	_LOGGER.debug("Setting up Family Link integration")
 
 	try:

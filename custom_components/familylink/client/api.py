@@ -1,4 +1,4 @@
-"""API client for Google Family Link integration."""
+"""API client for Google Family Link 2 integration."""
 from __future__ import annotations
 
 import asyncio
@@ -49,9 +49,9 @@ _LOGGER = logging.getLogger(LOGGER_NAME)
 
 
 class FamilyLinkClient:
-	"""Client for interacting with Google Family Link API."""
+	"""Client for interacting with Google Family Link 2 API."""
 
-	# Google Family Link API endpoints (reverse-engineered)
+	# Google Family Link 2 API endpoints (reverse-engineered)
 	BASE_URL = "https://kidsmanagement-pa.clients6.google.com/kidsmanagement/v1"
 	ORIGIN = "https://familylink.google.com"
 	API_KEY = "AIzaSyAQb1gupaJhY3CXQy2xmTwJMcjmot3M2hw"

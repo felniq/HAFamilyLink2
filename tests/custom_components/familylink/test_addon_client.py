@@ -19,7 +19,7 @@ from custom_components.familylink.const import (
 from custom_components.familylink.exceptions import AuthenticationError
 
 FAKE_API_KEY = "test-api-key-not-a-real-secret"
-FAKE_AUTH_URL = "http://auth.invalid:8099"
+FAKE_AUTH_URL = "http://auth.invalid:8098"
 FAKE_PREFIXED_AUTH_URL = f"{FAKE_AUTH_URL}/familylink-auth"
 
 
@@ -233,9 +233,9 @@ def test_query_credentials_are_rejected_by_runtime_client(hass) -> None:
 @pytest.mark.parametrize(
     "auth_url",
     [
-        "ftp://auth.invalid:8099",
-        "http://user:password@auth.invalid:8099",
-        "http://auth.invalid:8099/#fragment",
+        "ftp://auth.invalid:8098",
+        "http://user:password@auth.invalid:8098",
+        "http://auth.invalid:8098/#fragment",
         "not-a-url",
     ],
 )
@@ -445,7 +445,7 @@ async def test_managed_source_ignores_stale_manual_credentials(
     monkeypatch,
 ) -> None:
     """Managed mode uses only the current Supervisor endpoint and shared key."""
-    stale_url = "http://stale-auth.invalid:8099"
+    stale_url = "http://stale-auth.invalid:8098"
     client = addon_client.AddonCookieClient(
         hass,
         auth_url=stale_url,

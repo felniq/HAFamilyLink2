@@ -28,8 +28,8 @@ _LOGGER = logging.getLogger(__name__)
 
 # Create FastAPI app
 app = FastAPI(
-    title="Google Family Link Auth Service",
-    description="Authentication service for Google Family Link integration",
+    title="Google Family Link 2 Auth Service",
+    description="Authentication service for Google Family Link 2 integration",
     version="1.0.0"
 )
 
@@ -50,7 +50,7 @@ app.add_middleware(
 # API key for protecting the auth-flow endpoints (optional, env-provided)
 _API_KEY = os.getenv("API_KEY", "")
 # Supervisor add-on (HA OS/Supervised) injects SUPERVISOR_TOKEN; run.sh also
-# sets ADDON_MODE=1. In that mode the integration shares /share/familylink so
+# sets ADDON_MODE=1. In that mode the integration shares /share/familylink2 so
 # the cookie key is enforced with zero config. In Docker standalone there is no
 # shared volume, so an auto-generated key would break the integration.
 _ADDON_MODE = bool(os.getenv("SUPERVISOR_TOKEN") or os.getenv("ADDON_MODE"))
@@ -68,14 +68,14 @@ def _load_or_create_cookie_api_key() -> "str | None":
     bypass Family Link entirely. The API_KEY environment variable takes
     precedence; otherwise a key is generated once and persisted in the
     shared directory, where the Home Assistant integration (add-on setup)
-    picks it up automatically via /share/familylink/api_key.
+    picks it up automatically via /share/familylink2/api_key.
     """
     if _API_KEY:
         return _API_KEY
     if not _ADDON_MODE:
         _LOGGER.warning(
             "Cookie endpoint /api/cookies is UNPROTECTED: standalone mode "
-            "without API_KEY. Anyone able to reach port 8099 can read the "
+            "without API_KEY. Anyone able to reach port 8098 can read the "
             "stored Google cookies. Set API_KEY and enter it in the integration's "
             "separate API-key field to protect the endpoint."
         )
@@ -334,7 +334,7 @@ async def index():
 </head>
 <body>
     <div class="container">
-        <h1>🔐 Google Family Link</h1>
+        <h1>🔐 Google Family Link 2</h1>
         <p class="subtitle">{t['subtitle']}</p>
 
         <div id="status" class="status"></div>
@@ -383,7 +383,7 @@ async def index():
         }};
 
         // Build noVNC URL dynamically based on current host
-        const novncUrl = window.location.protocol + '//' + window.location.hostname + ':6080/vnc.html?autoconnect=true{novnc_password_param}';
+        const novncUrl = window.location.protocol + '//' + window.location.hostname + ':6079/vnc.html?autoconnect=true{novnc_password_param}';
         document.getElementById('novnc-link').href = novncUrl;
 
         // Forward the API key (if the page was opened with ?api_key=...) to the
@@ -499,7 +499,7 @@ async def health_check():
     """Health check endpoint."""
     return {
         "status": "healthy",
-        "service": "familylink-auth",
+        "service": "familylink-auth2",
         "version": "1.0.0"
     }
 

@@ -1,4 +1,4 @@
-"""Switch platform for Google Family Link integration."""
+"""Switch platform for Google Family Link 2 integration."""
 from __future__ import annotations
 
 import asyncio

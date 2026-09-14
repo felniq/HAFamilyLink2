@@ -129,10 +129,10 @@ class BrowserAuthManager:
 
             context.on("page", on_page)
 
-            # Navigate to Google Family Link
+            # Navigate to Google Family Link 2
             # Using 'load' instead of 'networkidle' for better reliability
             # 'networkidle' can timeout on pages with continuous background requests
-            _LOGGER.info("Navigating to Google Family Link...")
+            _LOGGER.info("Navigating to Google Family Link 2...")
             await page.goto('https://families.google.com', wait_until='load', timeout=30000)
 
             # Start monitoring in background with proper error handling

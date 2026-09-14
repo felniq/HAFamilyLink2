@@ -1,4 +1,4 @@
-"""Config flow for Google Family Link integration."""
+"""Config flow for Google Family Link 2 integration."""
 from __future__ import annotations
 
 import logging
@@ -100,7 +100,7 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
 
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-	"""Handle a config flow for Google Family Link."""
+	"""Handle a config flow for Google Family Link 2."""
 
 	VERSION = 2
 
@@ -213,7 +213,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 			data_schema=vol.Schema({
 				vol.Required(
 					CONF_AUTH_URL,
-					default="http://192.168.1.100:8099",
+					default="http://192.168.1.100:8098",
 				): TextSelector(
 					TextSelectorConfig(
 						type=TextSelectorType.URL,
@@ -227,7 +227,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 			}),
 			errors=errors,
 			description_placeholders={
-				"default_url": "http://localhost:8099",
+				"default_url": "http://localhost:8098",
 			},
 		)
 
@@ -291,7 +291,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 		if self._detected_source in {"api", "managed_addon"}:
 			description_placeholders["auth_source"] = "Detected authentication server"
 		elif self._detected_source == "file":
-			description_placeholders["auth_source"] = "Local file (/share/familylink/)"
+			description_placeholders["auth_source"] = "Local file (/share/familylink2/)"
 		else:
 			description_placeholders["auth_source"] = "Manual authentication server"
 
@@ -409,7 +409,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 			data_schema=vol.Schema({
 				vol.Required(
 					CONF_AUTH_URL,
-					default=entry.data.get(CONF_AUTH_URL, "http://localhost:8099"),
+					default=entry.data.get(CONF_AUTH_URL, "http://localhost:8098"),
 				): TextSelector(
 					TextSelectorConfig(
 						type=TextSelectorType.URL,

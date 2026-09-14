@@ -27,7 +27,7 @@ from custom_components.familylink.const import (
 )
 
 FAKE_API_KEY = "test-api-key-not-a-real-secret"
-FAKE_AUTH_URL = "http://auth.invalid:8099"
+FAKE_AUTH_URL = "http://auth.invalid:8098"
 
 
 @pytest.fixture
@@ -282,9 +282,9 @@ async def test_manual_flow_stores_clean_url_and_separate_key(
     "auth_url",
     [
         f"{FAKE_AUTH_URL}?api_key={FAKE_API_KEY}",
-        "http://user:password@auth.invalid:8099",
-        "http://auth.invalid:8099/#fragment",
-        "ftp://auth.invalid:8099",
+        "http://user:password@auth.invalid:8098",
+        "http://auth.invalid:8098/#fragment",
+        "ftp://auth.invalid:8098",
     ],
 )
 async def test_manual_flow_rejects_unsafe_url(
@@ -480,7 +480,7 @@ async def test_reconfigure_new_url_requires_explicit_key_decision(
         version=2,
     )
     entry.add_to_hass(hass)
-    new_url = "http://new-auth.invalid:8099"
+    new_url = "http://new-auth.invalid:8098"
 
     result = await hass.config_entries.flow.async_init(
         DOMAIN,
@@ -515,7 +515,7 @@ async def test_reconfigure_unprotected_entry_can_change_url_without_key(
         version=2,
     )
     entry.add_to_hass(hass)
-    new_url = "http://new-auth.invalid:8099"
+    new_url = "http://new-auth.invalid:8098"
 
     result = await hass.config_entries.flow.async_init(
         DOMAIN,
@@ -551,7 +551,7 @@ async def test_reconfigure_rejects_duplicate_without_network(
         version=2,
     )
     first.add_to_hass(hass)
-    second_url = "http://other-auth.invalid:8099"
+    second_url = "http://other-auth.invalid:8098"
     second = MockConfigEntry(
         domain=DOMAIN,
         data={CONF_AUTH_URL: second_url, CONF_API_KEY: "other-fake-key"},
