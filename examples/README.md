@@ -36,6 +36,12 @@ A few cards reference entities the integration does **not** create; they come fr
 | `sensor.firstname_ecran_par_heure` | hourly screen time charts (ApexCharts) |
 | `sensor.firstname_temps_d_ecran_total` | total screen time counter |
 
+## Weekly limits card (2.0)
+
+Version 2.0 adds one `number` per weekday (the screen time quota) and two `time` entities per weekday (bedtime start and end) for each child. [`weekly-limits-card.yaml`](weekly-limits-card.yaml) is the card shown at the bottom of the Family Link column: one tile per weekday with the quota, the bedtime window under it and today highlighted. Tap a day to change its quota, long press to change the bedtime start, double tap for the bedtime end. Paste it as a new card (**Add card > Manual**) and replace `firstname_name` with your child's slug (`number.firstname_name_monday_limit`, `time.firstname_name_monday_bedtime_start`, and so on). It needs button-card, card-mod, Mushroom and vertical-stack-in-card.
+
+With strict mode on, the values written from this card are the reference the integration puts back if they are changed in the Family Link app.
+
 ## Required custom cards (HACS)
 
 Install these from **HACS > Frontend** before pasting the YAML, otherwise cards render as "Custom element doesn't exist":

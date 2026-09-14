@@ -1,0 +1,401 @@
+type: custom:vertical-stack-in-card
+cards:
+- type: custom:button-card
+  tap_action:
+    action: none
+  styles:
+    grid:
+    - grid-template-areas: '"t"'
+    - justify-items: start
+    card:
+    - height: 40px
+    - box-shadow: none
+    - border: none
+    - padding: 0 0 0 16px
+    - margin: 0
+    - border-bottom-left-radius: 0 !important
+    - border-bottom-right-radius: 0 !important
+    custom_fields:
+      t:
+      - grid-area: t
+      - justify-self: start
+      - align-self: center
+  card_mod:
+    style: 'ha-card { border-bottom-left-radius: 0 !important; border-bottom-right-radius: 0 !important; }'
+  show_icon: false
+  show_name: false
+  custom_fields:
+    t: <div style="display:flex;align-items:center;gap:8px;line-height:1;"><ha-icon icon="mdi:calendar-week" style="--mdc-icon-size:20px;width:20px;height:20px;color:#fff;opacity:0.35;"></ha-icon><span style="font-size:15px;font-weight:bold;line-height:20px;display:inline-flex;align-items:center;color:var(--primary-text-color);">Weekly limits</span></div>
+- type: custom:mod-card
+  card_mod:
+    style: "ha-card {\n  height: 1px;\n  background: rgba(152, 152, 157, 0.3);\n  box-shadow: none;\n  border: none;\n}\n"
+  card:
+    type: custom:mushroom-title-card
+    title: ''
+- type: horizontal-stack
+  card_mod:
+    style: '#root { gap: 0 !important; padding: 0 4px; }
+
+      #root > * { margin: 0 !important; flex: 1 1 0 !important; min-width: 0 !important; }
+
+      '
+  cards:
+  - type: custom:button-card
+    entity: number.firstname_name_monday_limit
+    name: Mon
+    show_state: true
+    show_icon: false
+    triggers_update:
+    - time.firstname_name_monday_bedtime_start
+    - time.firstname_name_monday_bedtime_end
+    state_display: '[[[ const v = parseFloat(entity.state); if (isNaN(v)) return ''–''; const h = Math.floor(v/60); const m = v % 60; return h + ''h'' + (m > 0 ? (m < 10 ? ''0'' : '''') + m : ''''); ]]]'
+    tap_action:
+      action: more-info
+    hold_action:
+      action: more-info
+      entity: time.firstname_name_monday_bedtime_start
+    double_tap_action:
+      action: more-info
+      entity: time.firstname_name_monday_bedtime_end
+    custom_fields:
+      win: '[[[ const s = states[''time.firstname_name_monday_bedtime_start'']; const e = states[''time.firstname_name_monday_bedtime_end'']; const ok = (x) => x && x.state !== ''unknown'' && x.state !== ''unavailable''; const fmt = (x) => { const p = x.state.substring(0,5).split('':''); return parseInt(p[0]) + ''h'' + (p[1] !== ''00'' ? p[1] : ''''); }; return ok(s) && ok(e) ? fmt(s) + ''-'' + fmt(e) : ''''; ]]]'
+    styles:
+      grid:
+      - grid-template-areas: '"n" "s" "win"'
+      card:
+      - border: none
+      - border-radius: 8px
+      - background: '[[[ return new Date().getDay() === 1 ? ''rgba(255,152,0,0.18)'' : ''transparent''; ]]]'
+      - box-shadow: none
+      - overflow: visible
+      - height: 62px
+      - padding: 4px 0
+      name:
+      - font-size: 11px
+      - grid-area: n
+      - color: '[[[ return new Date().getDay() === 1 ? ''#FF9800'' : ''var(--primary-text-color)''; ]]]'
+      - font-weight: '[[[ return new Date().getDay() === 1 ? ''700'' : ''400''; ]]]'
+      - opacity: '[[[ return new Date().getDay() === 1 ? ''1'' : ''0.6''; ]]]'
+      state:
+      - font-size: 14px
+      - font-weight: bold
+      - grid-area: s
+      custom_fields:
+        win:
+        - grid-area: win
+        - font-size: 8px
+        - opacity: '0.5'
+        - white-space: nowrap
+        - letter-spacing: -0.3px
+        - overflow: visible
+        - text-overflow: clip
+        - justify-self: center
+        - padding: '0'
+  - type: custom:button-card
+    entity: number.firstname_name_tuesday_limit
+    name: Tue
+    show_state: true
+    show_icon: false
+    triggers_update:
+    - time.firstname_name_tuesday_bedtime_start
+    - time.firstname_name_tuesday_bedtime_end
+    state_display: '[[[ const v = parseFloat(entity.state); if (isNaN(v)) return ''–''; const h = Math.floor(v/60); const m = v % 60; return h + ''h'' + (m > 0 ? (m < 10 ? ''0'' : '''') + m : ''''); ]]]'
+    tap_action:
+      action: more-info
+    hold_action:
+      action: more-info
+      entity: time.firstname_name_tuesday_bedtime_start
+    double_tap_action:
+      action: more-info
+      entity: time.firstname_name_tuesday_bedtime_end
+    custom_fields:
+      win: '[[[ const s = states[''time.firstname_name_tuesday_bedtime_start'']; const e = states[''time.firstname_name_tuesday_bedtime_end'']; const ok = (x) => x && x.state !== ''unknown'' && x.state !== ''unavailable''; const fmt = (x) => { const p = x.state.substring(0,5).split('':''); return parseInt(p[0]) + ''h'' + (p[1] !== ''00'' ? p[1] : ''''); }; return ok(s) && ok(e) ? fmt(s) + ''-'' + fmt(e) : ''''; ]]]'
+    styles:
+      grid:
+      - grid-template-areas: '"n" "s" "win"'
+      card:
+      - border: none
+      - border-radius: 8px
+      - background: '[[[ return new Date().getDay() === 2 ? ''rgba(255,152,0,0.18)'' : ''transparent''; ]]]'
+      - box-shadow: none
+      - overflow: visible
+      - height: 62px
+      - padding: 4px 0
+      name:
+      - font-size: 11px
+      - grid-area: n
+      - color: '[[[ return new Date().getDay() === 2 ? ''#FF9800'' : ''var(--primary-text-color)''; ]]]'
+      - font-weight: '[[[ return new Date().getDay() === 2 ? ''700'' : ''400''; ]]]'
+      - opacity: '[[[ return new Date().getDay() === 2 ? ''1'' : ''0.6''; ]]]'
+      state:
+      - font-size: 14px
+      - font-weight: bold
+      - grid-area: s
+      custom_fields:
+        win:
+        - grid-area: win
+        - font-size: 8px
+        - opacity: '0.5'
+        - white-space: nowrap
+        - letter-spacing: -0.3px
+        - overflow: visible
+        - text-overflow: clip
+        - justify-self: center
+        - padding: '0'
+  - type: custom:button-card
+    entity: number.firstname_name_wednesday_limit
+    name: Wed
+    show_state: true
+    show_icon: false
+    triggers_update:
+    - time.firstname_name_wednesday_bedtime_start
+    - time.firstname_name_wednesday_bedtime_end
+    state_display: '[[[ const v = parseFloat(entity.state); if (isNaN(v)) return ''–''; const h = Math.floor(v/60); const m = v % 60; return h + ''h'' + (m > 0 ? (m < 10 ? ''0'' : '''') + m : ''''); ]]]'
+    tap_action:
+      action: more-info
+    hold_action:
+      action: more-info
+      entity: time.firstname_name_wednesday_bedtime_start
+    double_tap_action:
+      action: more-info
+      entity: time.firstname_name_wednesday_bedtime_end
+    custom_fields:
+      win: '[[[ const s = states[''time.firstname_name_wednesday_bedtime_start'']; const e = states[''time.firstname_name_wednesday_bedtime_end'']; const ok = (x) => x && x.state !== ''unknown'' && x.state !== ''unavailable''; const fmt = (x) => { const p = x.state.substring(0,5).split('':''); return parseInt(p[0]) + ''h'' + (p[1] !== ''00'' ? p[1] : ''''); }; return ok(s) && ok(e) ? fmt(s) + ''-'' + fmt(e) : ''''; ]]]'
+    styles:
+      grid:
+      - grid-template-areas: '"n" "s" "win"'
+      card:
+      - border: none
+      - border-radius: 8px
+      - background: '[[[ return new Date().getDay() === 3 ? ''rgba(255,152,0,0.18)'' : ''transparent''; ]]]'
+      - box-shadow: none
+      - overflow: visible
+      - height: 62px
+      - padding: 4px 0
+      name:
+      - font-size: 11px
+      - grid-area: n
+      - color: '[[[ return new Date().getDay() === 3 ? ''#FF9800'' : ''var(--primary-text-color)''; ]]]'
+      - font-weight: '[[[ return new Date().getDay() === 3 ? ''700'' : ''400''; ]]]'
+      - opacity: '[[[ return new Date().getDay() === 3 ? ''1'' : ''0.6''; ]]]'
+      state:
+      - font-size: 14px
+      - font-weight: bold
+      - grid-area: s
+      custom_fields:
+        win:
+        - grid-area: win
+        - font-size: 8px
+        - opacity: '0.5'
+        - white-space: nowrap
+        - letter-spacing: -0.3px
+        - overflow: visible
+        - text-overflow: clip
+        - justify-self: center
+        - padding: '0'
+  - type: custom:button-card
+    entity: number.firstname_name_thursday_limit
+    name: Thu
+    show_state: true
+    show_icon: false
+    triggers_update:
+    - time.firstname_name_thursday_bedtime_start
+    - time.firstname_name_thursday_bedtime_end
+    state_display: '[[[ const v = parseFloat(entity.state); if (isNaN(v)) return ''–''; const h = Math.floor(v/60); const m = v % 60; return h + ''h'' + (m > 0 ? (m < 10 ? ''0'' : '''') + m : ''''); ]]]'
+    tap_action:
+      action: more-info
+    hold_action:
+      action: more-info
+      entity: time.firstname_name_thursday_bedtime_start
+    double_tap_action:
+      action: more-info
+      entity: time.firstname_name_thursday_bedtime_end
+    custom_fields:
+      win: '[[[ const s = states[''time.firstname_name_thursday_bedtime_start'']; const e = states[''time.firstname_name_thursday_bedtime_end'']; const ok = (x) => x && x.state !== ''unknown'' && x.state !== ''unavailable''; const fmt = (x) => { const p = x.state.substring(0,5).split('':''); return parseInt(p[0]) + ''h'' + (p[1] !== ''00'' ? p[1] : ''''); }; return ok(s) && ok(e) ? fmt(s) + ''-'' + fmt(e) : ''''; ]]]'
+    styles:
+      grid:
+      - grid-template-areas: '"n" "s" "win"'
+      card:
+      - border: none
+      - border-radius: 8px
+      - background: '[[[ return new Date().getDay() === 4 ? ''rgba(255,152,0,0.18)'' : ''transparent''; ]]]'
+      - box-shadow: none
+      - overflow: visible
+      - height: 62px
+      - padding: 4px 0
+      name:
+      - font-size: 11px
+      - grid-area: n
+      - color: '[[[ return new Date().getDay() === 4 ? ''#FF9800'' : ''var(--primary-text-color)''; ]]]'
+      - font-weight: '[[[ return new Date().getDay() === 4 ? ''700'' : ''400''; ]]]'
+      - opacity: '[[[ return new Date().getDay() === 4 ? ''1'' : ''0.6''; ]]]'
+      state:
+      - font-size: 14px
+      - font-weight: bold
+      - grid-area: s
+      custom_fields:
+        win:
+        - grid-area: win
+        - font-size: 8px
+        - opacity: '0.5'
+        - white-space: nowrap
+        - letter-spacing: -0.3px
+        - overflow: visible
+        - text-overflow: clip
+        - justify-self: center
+        - padding: '0'
+  - type: custom:button-card
+    entity: number.firstname_name_friday_limit
+    name: Fri
+    show_state: true
+    show_icon: false
+    triggers_update:
+    - time.firstname_name_friday_bedtime_start
+    - time.firstname_name_friday_bedtime_end
+    state_display: '[[[ const v = parseFloat(entity.state); if (isNaN(v)) return ''–''; const h = Math.floor(v/60); const m = v % 60; return h + ''h'' + (m > 0 ? (m < 10 ? ''0'' : '''') + m : ''''); ]]]'
+    tap_action:
+      action: more-info
+    hold_action:
+      action: more-info
+      entity: time.firstname_name_friday_bedtime_start
+    double_tap_action:
+      action: more-info
+      entity: time.firstname_name_friday_bedtime_end
+    custom_fields:
+      win: '[[[ const s = states[''time.firstname_name_friday_bedtime_start'']; const e = states[''time.firstname_name_friday_bedtime_end'']; const ok = (x) => x && x.state !== ''unknown'' && x.state !== ''unavailable''; const fmt = (x) => { const p = x.state.substring(0,5).split('':''); return parseInt(p[0]) + ''h'' + (p[1] !== ''00'' ? p[1] : ''''); }; return ok(s) && ok(e) ? fmt(s) + ''-'' + fmt(e) : ''''; ]]]'
+    styles:
+      grid:
+      - grid-template-areas: '"n" "s" "win"'
+      card:
+      - border: none
+      - border-radius: 8px
+      - background: '[[[ return new Date().getDay() === 5 ? ''rgba(255,152,0,0.18)'' : ''transparent''; ]]]'
+      - box-shadow: none
+      - overflow: visible
+      - height: 62px
+      - padding: 4px 0
+      name:
+      - font-size: 11px
+      - grid-area: n
+      - color: '[[[ return new Date().getDay() === 5 ? ''#FF9800'' : ''var(--primary-text-color)''; ]]]'
+      - font-weight: '[[[ return new Date().getDay() === 5 ? ''700'' : ''400''; ]]]'
+      - opacity: '[[[ return new Date().getDay() === 5 ? ''1'' : ''0.6''; ]]]'
+      state:
+      - font-size: 14px
+      - font-weight: bold
+      - grid-area: s
+      custom_fields:
+        win:
+        - grid-area: win
+        - font-size: 8px
+        - opacity: '0.5'
+        - white-space: nowrap
+        - letter-spacing: -0.3px
+        - overflow: visible
+        - text-overflow: clip
+        - justify-self: center
+        - padding: '0'
+  - type: custom:button-card
+    entity: number.firstname_name_saturday_limit
+    name: Sat
+    show_state: true
+    show_icon: false
+    triggers_update:
+    - time.firstname_name_saturday_bedtime_start
+    - time.firstname_name_saturday_bedtime_end
+    state_display: '[[[ const v = parseFloat(entity.state); if (isNaN(v)) return ''–''; const h = Math.floor(v/60); const m = v % 60; return h + ''h'' + (m > 0 ? (m < 10 ? ''0'' : '''') + m : ''''); ]]]'
+    tap_action:
+      action: more-info
+    hold_action:
+      action: more-info
+      entity: time.firstname_name_saturday_bedtime_start
+    double_tap_action:
+      action: more-info
+      entity: time.firstname_name_saturday_bedtime_end
+    custom_fields:
+      win: '[[[ const s = states[''time.firstname_name_saturday_bedtime_start'']; const e = states[''time.firstname_name_saturday_bedtime_end'']; const ok = (x) => x && x.state !== ''unknown'' && x.state !== ''unavailable''; const fmt = (x) => { const p = x.state.substring(0,5).split('':''); return parseInt(p[0]) + ''h'' + (p[1] !== ''00'' ? p[1] : ''''); }; return ok(s) && ok(e) ? fmt(s) + ''-'' + fmt(e) : ''''; ]]]'
+    styles:
+      grid:
+      - grid-template-areas: '"n" "s" "win"'
+      card:
+      - border: none
+      - border-radius: 8px
+      - background: '[[[ return new Date().getDay() === 6 ? ''rgba(255,152,0,0.18)'' : ''transparent''; ]]]'
+      - box-shadow: none
+      - overflow: visible
+      - height: 62px
+      - padding: 4px 0
+      name:
+      - font-size: 11px
+      - grid-area: n
+      - color: '[[[ return new Date().getDay() === 6 ? ''#FF9800'' : ''var(--primary-text-color)''; ]]]'
+      - font-weight: '[[[ return new Date().getDay() === 6 ? ''700'' : ''400''; ]]]'
+      - opacity: '[[[ return new Date().getDay() === 6 ? ''1'' : ''0.6''; ]]]'
+      state:
+      - font-size: 14px
+      - font-weight: bold
+      - grid-area: s
+      custom_fields:
+        win:
+        - grid-area: win
+        - font-size: 8px
+        - opacity: '0.5'
+        - white-space: nowrap
+        - letter-spacing: -0.3px
+        - overflow: visible
+        - text-overflow: clip
+        - justify-self: center
+        - padding: '0'
+  - type: custom:button-card
+    entity: number.firstname_name_sunday_limit
+    name: Sun
+    show_state: true
+    show_icon: false
+    triggers_update:
+    - time.firstname_name_sunday_bedtime_start
+    - time.firstname_name_sunday_bedtime_end
+    state_display: '[[[ const v = parseFloat(entity.state); if (isNaN(v)) return ''–''; const h = Math.floor(v/60); const m = v % 60; return h + ''h'' + (m > 0 ? (m < 10 ? ''0'' : '''') + m : ''''); ]]]'
+    tap_action:
+      action: more-info
+    hold_action:
+      action: more-info
+      entity: time.firstname_name_sunday_bedtime_start
+    double_tap_action:
+      action: more-info
+      entity: time.firstname_name_sunday_bedtime_end
+    custom_fields:
+      win: '[[[ const s = states[''time.firstname_name_sunday_bedtime_start'']; const e = states[''time.firstname_name_sunday_bedtime_end'']; const ok = (x) => x && x.state !== ''unknown'' && x.state !== ''unavailable''; const fmt = (x) => { const p = x.state.substring(0,5).split('':''); return parseInt(p[0]) + ''h'' + (p[1] !== ''00'' ? p[1] : ''''); }; return ok(s) && ok(e) ? fmt(s) + ''-'' + fmt(e) : ''''; ]]]'
+    styles:
+      grid:
+      - grid-template-areas: '"n" "s" "win"'
+      card:
+      - border: none
+      - border-radius: 8px
+      - background: '[[[ return new Date().getDay() === 0 ? ''rgba(255,152,0,0.18)'' : ''transparent''; ]]]'
+      - box-shadow: none
+      - overflow: visible
+      - height: 62px
+      - padding: 4px 0
+      name:
+      - font-size: 11px
+      - grid-area: n
+      - color: '[[[ return new Date().getDay() === 0 ? ''#FF9800'' : ''var(--primary-text-color)''; ]]]'
+      - font-weight: '[[[ return new Date().getDay() === 0 ? ''700'' : ''400''; ]]]'
+      - opacity: '[[[ return new Date().getDay() === 0 ? ''1'' : ''0.6''; ]]]'
+      state:
+      - font-size: 14px
+      - font-weight: bold
+      - grid-area: s
+      custom_fields:
+        win:
+        - grid-area: win
+        - font-size: 8px
+        - opacity: '0.5'
+        - white-space: nowrap
+        - letter-spacing: -0.3px
+        - overflow: visible
+        - text-overflow: clip
+        - justify-self: center
+        - padding: '0'
+card_mod:
+  style: 'ha-card { overflow: hidden !important; border-radius: var(--ha-card-border-radius, 12px) !important; }'
